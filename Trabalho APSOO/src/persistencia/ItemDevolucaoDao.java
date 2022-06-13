@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class ItemDevolucaoDao implements InterfaceDAO<ItemDevolucao,Integer> {
     private final Connection conexao;
     private final SapatoDao sapato;
-    public ItemDevolucaoDao() throws Exception{
-        conexao=ConexaoBD.conectar();
-        sapato = new SapatoDao();
+    public ItemDevolucaoDao(Connection connection) throws Exception{
+        this.conexao=connection;
+        sapato = new SapatoDao(conexao);
     }
     @Override
     public void inserir(ItemDevolucao entidade) {

@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class VendaDao implements InterfaceDAO<Venda,Integer>{
 
     private final Connection conexao;
-    public VendaDao() {
-        conexao=ConexaoBD.conectar();
+    public VendaDao(Connection connection) {
+        conexao=connection;
     }
     @Override
     public void inserir(Venda entidade) {

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class VendedorDao implements  InterfaceDAO<Vendedor, String>{
     private final Connection conexao;
-    public VendedorDao() {
-        conexao=ConexaoBD.conectar();
+    public VendedorDao(Connection connection) {
+        conexao=connection;
     }
 
     //insere em três tabelas as informações do vendedor

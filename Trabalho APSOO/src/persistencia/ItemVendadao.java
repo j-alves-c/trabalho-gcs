@@ -14,11 +14,11 @@ import java.util.ArrayList;
 public class ItemVendadao implements InterfaceDAO<ItemVenda,Integer> {
     private final Connection conexao;
     private final SapatoDao sapato;
-    public ItemVendadao() throws Exception{
-        conexao=ConexaoBD.conectar();
-        sapato = new SapatoDao();
+    public ItemVendadao(Connection connection) throws Exception{
+        conexao=connection;
+        sapato = new SapatoDao(conexao);
     }
-//inserção do item venda no banco
+//inserï¿½ï¿½o do item venda no banco
     @Override
     public void inserir(ItemVenda entidade) {
         try {
@@ -35,7 +35,7 @@ public class ItemVendadao implements InterfaceDAO<ItemVenda,Integer> {
 
                 sapato.atualizar(sapato.buscarPorCodigo(entidade.getSapato().getCodigoDeBarras()));
             }else{
-                System.out.println("não foi possivel salvar no banco");
+                System.out.println("nï¿½o foi possivel salvar no banco");
             }
 
         } catch (SQLException e ) {
@@ -59,7 +59,7 @@ public class ItemVendadao implements InterfaceDAO<ItemVenda,Integer> {
             if(qtd>0){
                 System.out.println("Atualizado no banco");
             }else{
-                System.out.println("Não foi possivel atualizar no banco");
+                System.out.println("Nï¿½o foi possivel atualizar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -80,7 +80,7 @@ public class ItemVendadao implements InterfaceDAO<ItemVenda,Integer> {
             if(qtd>0 ){
                 System.out.println("Deletado do banco");
             }else{
-                System.out.println("Não foi possivel deletar no banco");
+                System.out.println("Nï¿½o foi possivel deletar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -116,7 +116,7 @@ public class ItemVendadao implements InterfaceDAO<ItemVenda,Integer> {
         }
         return null;
     }
-//listar os relacionados à venda dada
+//listar os relacionados ï¿½ venda dada
     @Override
     public ArrayList<ItemVenda> listaTodos() {
         PreparedStatement preStm;

@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class ConexaoBD {
 	public static Connection connection = null; //conexao com banco de dados
 	public static Statement statement = null; //gerencia consultas
-	public static ResultSet result = null;  //armazena e retorna as consultas feitas
+
 	
 	
 	public static Connection conectar() {
@@ -39,7 +39,7 @@ public class ConexaoBD {
 	}
 
 
-	public void closeconexao() {
+	public static void closeconexao() {
 		try {
 			connection.close();
 		}

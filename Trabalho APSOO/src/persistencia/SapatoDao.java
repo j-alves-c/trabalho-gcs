@@ -10,8 +10,8 @@ import java.util.ArrayList;
 //conecta
 public class SapatoDao implements InterfaceDAO<Sapato,Double>{
     private final Connection conexao;
-    public SapatoDao() throws Exception{
-        conexao=ConexaoBD.conectar();
+    public SapatoDao(Connection connection) throws Exception{
+        conexao=connection;
     }
 
  //insere no banco
@@ -34,7 +34,7 @@ public class SapatoDao implements InterfaceDAO<Sapato,Double>{
             if(qtd>0){
                 System.out.println("Salvo no banco");
             }else{
-                System.out.println("não foi possivel salvar no banco");
+                System.out.println("nï¿½o foi possivel salvar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -53,7 +53,7 @@ public class SapatoDao implements InterfaceDAO<Sapato,Double>{
             if(qtd>0){
                 System.out.println("Sapato atualizado");
             }else{
-                System.out.println("Não foi possivel atualizar no banco");
+                System.out.println("Nï¿½o foi possivel atualizar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -73,7 +73,7 @@ public class SapatoDao implements InterfaceDAO<Sapato,Double>{
             if(qtd>0){
                 System.out.println("Sapato atualizado");
             }else{
-                System.out.println("Não foi possivel atualizar no banco");
+                System.out.println("Nï¿½o foi possivel atualizar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -95,7 +95,7 @@ public class SapatoDao implements InterfaceDAO<Sapato,Double>{
             if(qtd>0){
                 System.out.println("Deletado do banco");
             }else{
-                System.out.println("Não foi possivel deletar no banco");
+                System.out.println("Nï¿½o foi possivel deletar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block

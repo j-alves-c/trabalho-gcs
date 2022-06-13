@@ -10,12 +10,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.sql.Connection;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
 public class ControlaED implements ActionListener, FocusListener {
+    private final Connection conexao;
     private final EfetuarDevolucao efetuarDevolucao;
     private static Vendedor vendedor;
     private static Cliente cliente;
@@ -33,16 +35,17 @@ public class ControlaED implements ActionListener, FocusListener {
     private double total = 0;
 
     public ControlaED(EfetuarDevolucao efetuarDevolucao) {
+        conexao = ConexaoBD.conectar();
         this.efetuarDevolucao = efetuarDevolucao;
         try {
-            persistSapato = new SapatoDao();
+            persistSapato = new SapatoDao(conexao);
         } catch (Exception e) {
 
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         try {
-            persistVendidos = new ItemVendadao();
+            persistVendidos = new ItemVendadao(conexao);
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -51,22 +54,14 @@ public class ControlaED implements ActionListener, FocusListener {
 
 
         try {
-            persistVenda = new VendaDao();
+            persistVenda = new VendaDao(conexao);
         } catch (Exception e) {
 
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         try {
-            persistDevolucao = new DevolucaoDao();
-        } catch (Exception e) {
-
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-
-        try {
-            persistVendedor = new VendedorDao();
+            persistDevolucao = new DevolucaoDao(conexao);
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -74,14 +69,22 @@ public class ControlaED implements ActionListener, FocusListener {
         }
 
         try {
-            persistCliente = new ClienteDao();
+            persistVendedor = new VendedorDao(conexao);
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+        try {
+            persistCliente = new ClienteDao(conexao);
         } catch (Exception e) {
 
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         try {
-            persistItem = new ItemDevolucaoDao();
+            persistItem = new ItemDevolucaoDao(conexao);
 
         } catch (Exception e){
             e.printStackTrace();
@@ -124,13 +127,13 @@ public class ControlaED implements ActionListener, FocusListener {
 
     }
     private void confirma(){
-            int conf = JOptionPane.showConfirmDialog(null, "Deseja confirmar a devolu\u00e7\u00e3o", "Confirmar", JOptionPane.YES_NO_OPTION);
+        int conf = JOptionPane.showConfirmDialog(null, "Deseja confirmar a devolu\u00e7\u00e3o", "Confirmar", JOptionPane.YES_NO_OPTION);
         if (conf == JOptionPane.YES_OPTION)
             finalizarDevolucao();
 
-
-
     }
+
+
     private void finalizarDevolucao() {
         if (vendedor != null && cliente != null && !produtos.isEmpty() && venda != null){
             devolucao.setProdutos(produtos);
@@ -156,6 +159,7 @@ public class ControlaED implements ActionListener, FocusListener {
         limpaCampo();
         produtos.removeAll(produtos);
         JOptionPane.showMessageDialog(null,"Fechando o Sistema!");
+        ConexaoBD.closeconexao();
 
         System.exit(0);
 

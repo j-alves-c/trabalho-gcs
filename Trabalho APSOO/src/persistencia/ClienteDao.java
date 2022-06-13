@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class ClienteDao implements  InterfaceDAO<Cliente,String>{
     private final Connection conexao;
     //conectar no banco
-    public ClienteDao() throws Exception{
-        conexao=ConexaoBD.conectar();
+    public ClienteDao(Connection connection) throws Exception{
+        this.conexao=connection;
     }
     //inserir no banco (junta tabelas)
     public void inserir(Cliente entidade)  {

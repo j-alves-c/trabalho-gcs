@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.sql.Connection;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.Objects;
 
 
 public class ControlaEV  implements ActionListener, FocusListener {
+    private final Connection conexao;
     private final EfetuarVenda efetuarVenda;
     private static Vendedor vendedor;
     private static Cliente cliente;
@@ -33,11 +35,13 @@ public class ControlaEV  implements ActionListener, FocusListener {
 
 
     public ControlaEV(EfetuarVenda efetuarVenda){
+       this.conexao = ConexaoBD.conectar();
+
          this.efetuarVenda = efetuarVenda;
         // inicialização das classes Dao necessárias
 
         try {
-            persistSapato = new SapatoDao();
+            persistSapato = new SapatoDao(conexao);
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -46,17 +50,7 @@ public class ControlaEV  implements ActionListener, FocusListener {
 
 
         try {
-            persistVenda = new VendaDao();
-        } catch (Exception e) {
-
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-
-
-
-        try {
-            persistVendedor = new VendedorDao();
+            persistVenda = new VendaDao(conexao);
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -66,14 +60,24 @@ public class ControlaEV  implements ActionListener, FocusListener {
 
 
         try {
-            persistCliente = new ClienteDao();
+            persistVendedor = new VendedorDao(conexao);
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+
+
+        try {
+            persistCliente = new ClienteDao(conexao);
         } catch (Exception e) {
 
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         try {
-            persistItem = new ItemVendadao();
+            persistItem = new ItemVendadao(conexao);
 
         } catch (Exception e){
             e.printStackTrace();
@@ -243,10 +247,11 @@ public class ControlaEV  implements ActionListener, FocusListener {
         
 
     }
+
     private void confirma(){
         int conf = JOptionPane.showConfirmDialog(null, "Deseja confirmar a venda", "Confirmar", JOptionPane.YES_NO_OPTION);
-       if (conf == JOptionPane.YES_OPTION)
-           finalizarVenda();
+        if (conf == JOptionPane.YES_OPTION)
+            finalizarVenda();
 
     }
     private void limpaPainel(){
@@ -300,7 +305,7 @@ public class ControlaEV  implements ActionListener, FocusListener {
     private void cancelarVenda(){
         limpaCampo();
         JOptionPane.showMessageDialog(null,"Fechando o Sistema!");
-
+        ConexaoBD.closeconexao();
         System.exit(0);
 
 
@@ -561,11 +566,13 @@ public class ControlaEV  implements ActionListener, FocusListener {
         //Valida cpfVendedor
         else if (e.getSource().equals(efetuarVenda.getCampoVendedor())){
             validaVendedor();
+
         }
 
         //ValidaCpfCliente()
         else if (e.getSource().equals(efetuarVenda.getCampoCliente())){
             validaCliente();
+
         }
 
         else if(e.getSource().equals(efetuarVenda.getCampoParcelas())){

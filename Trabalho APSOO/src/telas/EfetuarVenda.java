@@ -158,6 +158,7 @@ public class EfetuarVenda  {
 		campoNomeVendedor = new JTextField();
 		campoNomeVendedor.setColumns(10);
 		campoNomeVendedor.setBounds(606, 56, 276, 30);
+		campoNomeVendedor.addFocusListener(contEV);
 		frame.getContentPane().add(campoNomeVendedor);
 		
 		campoNomeCliente = new JTextField();

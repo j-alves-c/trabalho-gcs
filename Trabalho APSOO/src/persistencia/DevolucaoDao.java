@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class DevolucaoDao implements InterfaceDAO<Devolucao,Integer> {
     private final Connection conexao;
-    public DevolucaoDao() {
-        conexao=ConexaoBD.conectar();
+    public DevolucaoDao(Connection connection) {
+        this.conexao=connection;
     }
     @Override
     public void inserir(Devolucao entidade) {
