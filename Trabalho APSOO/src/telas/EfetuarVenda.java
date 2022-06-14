@@ -11,26 +11,27 @@ import java.awt.*;
 public class EfetuarVenda  {
 
 	private JFrame frame;
-	private JTextField campoVendedor;
-	private JTextField campoCliente;
+	private JTextField campoCpfVendedor;
+	private JTextField campoCpfCliente;
 	private JTextField campoDesconto;
 	private JTextField campoParcelas;
 	private JTextField codigoVenda;
 	private JTextField dataAtual;
-	private JTextField codigo_sapato;
+	private JTextField codigoSapato;
+
 	private JTextField campoMarca;
-	private JTextField campocolecao;
-	private JTextField campomodelo;
-	private JTextField campotipo;
-	private JTextField campotam;
-	private JTextField campovaloruni;
+	private JTextField campoColecao;
+	private JTextField campoModelo;
+	private JTextField campoTipo;
+	private JTextField campoTam;
+	private JTextField campoValorUni;
 	private JComboBox escolhePagamento;
-	private JPanel panel;
+	private JPanel painel;
 	private JButton remover;
 	private JButton confirmar;
 	private JButton cancelar;
-	private JButton adicionar_item;
-	private JTextField campototal;
+	private JButton adicionarItem;
+	private JTextField campoTotal;
 	private JTextField campoNomeVendedor;
 	private JTextField campoNomeCliente;
 
@@ -56,67 +57,67 @@ public class EfetuarVenda  {
 
 
 // cria��o das legendas para os campos de preenchimento
-		JLabel tela_label = new JLabel("Venda Sapatos");
-		tela_label.setForeground(Color.MAGENTA);
-		tela_label.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		JLabel legendaTela = new JLabel("Venda Sapatos");
+		legendaTela.setForeground(Color.MAGENTA);
+		legendaTela.setFont(new Font("Tahoma", Font.PLAIN, 32));
 
-		tela_label.setBounds(10, 11, 211, 40);
-		frame.getContentPane().add(tela_label);
+		legendaTela.setBounds(10, 11, 211, 40);
+		frame.getContentPane().add(legendaTela);
 		
-		JLabel lblCodigoVenda = new JLabel("C\u00F3digo da venda");
-		lblCodigoVenda.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCodigoVenda.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCodigoVenda.setBounds(324, 15, 148, 30);
-		frame.getContentPane().add(lblCodigoVenda);
+		JLabel legendaCodigoVenda = new JLabel("C\u00F3digo da venda");
+		legendaCodigoVenda.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaCodigoVenda.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		legendaCodigoVenda.setBounds(324, 15, 148, 30);
+		frame.getContentPane().add(legendaCodigoVenda);
 		
-		JLabel lblData = new JLabel("Data");
-		lblData.setHorizontalAlignment(SwingConstants.CENTER);
-		lblData.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblData.setBounds(686, 15, 46, 30);
-		frame.getContentPane().add(lblData);
+		JLabel legendaData = new JLabel("Data");
+		legendaData.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaData.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		legendaData.setBounds(686, 15, 46, 30);
+		frame.getContentPane().add(legendaData);
 		
-		JLabel lblCpfVendedor = new JLabel("CPF Vendedor");
-		lblCpfVendedor.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCpfVendedor.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCpfVendedor.setBounds(20, 62, 110, 30);
-		frame.getContentPane().add(lblCpfVendedor);
+		JLabel legendaCpfVendedor = new JLabel("CPF Vendedor");
+		legendaCpfVendedor.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaCpfVendedor.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		legendaCpfVendedor.setBounds(20, 62, 110, 30);
+		frame.getContentPane().add(legendaCpfVendedor);
 		
-		JLabel lblCpfCliente = new JLabel("CPF Cliente");
-		lblCpfCliente.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCpfCliente.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCpfCliente.setBounds(20, 97, 110, 30);
-		frame.getContentPane().add(lblCpfCliente);
+		JLabel legendaCpfCliente = new JLabel("CPF Cliente");
+		legendaCpfCliente.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		legendaCpfCliente.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaCpfCliente.setBounds(20, 97, 110, 30);
+		frame.getContentPane().add(legendaCpfCliente);
 
 		
-		JLabel lblNomeVendedor = new JLabel("Nome Vendedor");
-		lblNomeVendedor.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNomeVendedor.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNomeVendedor.setBounds(490, 59, 110, 30);
-		frame.getContentPane().add(lblNomeVendedor);
+		JLabel legendaNomeVendedor = new JLabel("Nome Vendedor");
+		legendaNomeVendedor.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaNomeVendedor.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		legendaNomeVendedor.setBounds(490, 59, 110, 30);
+		frame.getContentPane().add(legendaNomeVendedor);
 		
-		JLabel lblNomeCliente = new JLabel("Nome Cliente");
-		lblNomeCliente.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNomeCliente.setBounds(506, 94, 90, 30);
-		frame.getContentPane().add(lblNomeCliente);
+		JLabel legendaNomeCliente = new JLabel("Nome Cliente");
+		legendaNomeCliente.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaNomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		legendaNomeCliente.setBounds(506, 94, 90, 30);
+		frame.getContentPane().add(legendaNomeCliente);
 		
-		JLabel lblFormaPag = new JLabel("Forma de pagamento");
-		lblFormaPag.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFormaPag.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblFormaPag.setBounds(20, 147, 150, 30);
-		frame.getContentPane().add(lblFormaPag);
+		JLabel legendaFormaPag = new JLabel("Forma de pagamento");
+		legendaFormaPag.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaFormaPag.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		legendaFormaPag.setBounds(20, 147, 150, 30);
+		frame.getContentPane().add(legendaFormaPag);
 		
-		JLabel lblDesconto = new JLabel("Desconto");
-		lblDesconto.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblDesconto.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDesconto.setBounds(506, 147, 71, 30);
-		frame.getContentPane().add(lblDesconto);
+		JLabel legendaDesconto = new JLabel("Desconto");
+		legendaDesconto.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		legendaDesconto.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaDesconto.setBounds(506, 147, 71, 30);
+		frame.getContentPane().add(legendaDesconto);
 		
-		JLabel lblParcelas = new JLabel("Parcelas");
-		lblParcelas.setHorizontalAlignment(SwingConstants.CENTER);
-		lblParcelas.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblParcelas.setBounds(721, 147, 71, 30);
-		frame.getContentPane().add(lblParcelas);
+		JLabel legendaParcelas = new JLabel("Parcelas");
+		legendaParcelas.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaParcelas.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		legendaParcelas.setBounds(721, 147, 71, 30);
+		frame.getContentPane().add(legendaParcelas);
 // fim da cria��o das legendas para os campos de preenchimento
 
 
@@ -142,17 +143,17 @@ public class EfetuarVenda  {
 		frame.getContentPane().add(escolhePagamento);
 
 //campo para inserir o CPF do vendedor e o sistema retornar o nome
-		campoVendedor = new JTextField();
-		campoVendedor.setBounds(140, 62, 276, 30);
-		campoVendedor.addFocusListener(contEV);
-		frame.getContentPane().add(campoVendedor);
-		campoVendedor.setColumns(10);
+		campoCpfVendedor = new JTextField();
+		campoCpfVendedor.setBounds(140, 62, 276, 30);
+		campoCpfVendedor.addFocusListener(contEV);
+		frame.getContentPane().add(campoCpfVendedor);
+		campoCpfVendedor.setColumns(10);
 
-		campoCliente = new JTextField();
-		campoCliente.setColumns(10);
-		campoCliente.setBounds(140, 99, 276, 30);
-		campoCliente.addFocusListener(contEV);
-		frame.getContentPane().add(campoCliente);
+		campoCpfCliente = new JTextField();
+		campoCpfCliente.setColumns(10);
+		campoCpfCliente.setBounds(140, 99, 276, 30);
+		campoCpfCliente.addFocusListener(contEV);
+		frame.getContentPane().add(campoCpfCliente);
 
 
 		campoNomeVendedor = new JTextField();
@@ -164,6 +165,7 @@ public class EfetuarVenda  {
 		campoNomeCliente = new JTextField();
 		campoNomeCliente.setColumns(10);
 		campoNomeCliente.setBounds(606, 97, 276, 30);
+		campoNomeCliente.addFocusListener(contEV);
 		frame.getContentPane().add(campoNomeCliente);
 		
 		campoDesconto = new JTextField();
@@ -184,22 +186,22 @@ public class EfetuarVenda  {
 
 
 //painel de cadastro de sapatos
-		panel = new JPanel();
-		panel.setBackground(SystemColor.activeCaption);
-		panel.setForeground(SystemColor.activeCaption);
-		panel.setBounds(0, 238, 880, 247);
+		painel = new JPanel();
+		painel.setBackground(SystemColor.activeCaption);
+		painel.setForeground(SystemColor.activeCaption);
+		painel.setBounds(0, 238, 880, 247);
 
-		panel.setLayout(null);
-		frame.getContentPane().add(panel);
+		painel.setLayout(null);
+		frame.getContentPane().add(painel);
 		
 //campo para inserir o c�digo de barras do sapato
-		codigo_sapato = new JTextField();
-		codigo_sapato.setHorizontalAlignment(SwingConstants.LEFT);
-		codigo_sapato.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		codigo_sapato.setBounds(12, 10, 120, 30);
-		codigo_sapato.addFocusListener(contEV);
-		panel.add(codigo_sapato);
-		codigo_sapato.setColumns(10);
+		codigoSapato = new JTextField();
+		codigoSapato.setHorizontalAlignment(SwingConstants.LEFT);
+		codigoSapato.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		codigoSapato.setBounds(12, 10, 120, 30);
+		codigoSapato.addFocusListener(contEV);
+		painel.add(codigoSapato);
+		codigoSapato.setColumns(10);
 		
 //campos de descri��o do sapato
 		//campos de descrição do sapato
@@ -208,42 +210,42 @@ public class EfetuarVenda  {
 		campoMarca.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		campoMarca.setColumns(10);
 		campoMarca.setBounds(142, 10, 120, 30);
-		panel.add(campoMarca);
+		painel.add(campoMarca);
 
-		campocolecao = new JTextField();
-		campocolecao.setHorizontalAlignment(SwingConstants.LEFT);
-		campocolecao.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		campocolecao.setColumns(10);
-		campocolecao.setBounds(272, 10, 120, 30);
-		panel.add(campocolecao);
+		campoColecao = new JTextField();
+		campoColecao.setHorizontalAlignment(SwingConstants.LEFT);
+		campoColecao.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		campoColecao.setColumns(10);
+		campoColecao.setBounds(272, 10, 120, 30);
+		painel.add(campoColecao);
 
-		campomodelo = new JTextField();
-		campomodelo.setHorizontalAlignment(SwingConstants.LEFT);
-		campomodelo.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		campomodelo.setColumns(10);
-		campomodelo.setBounds(402, 10, 120, 30);
-		panel.add(campomodelo);
+		campoModelo = new JTextField();
+		campoModelo.setHorizontalAlignment(SwingConstants.LEFT);
+		campoModelo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		campoModelo.setColumns(10);
+		campoModelo.setBounds(402, 10, 120, 30);
+		painel.add(campoModelo);
 
-		campotipo = new JTextField();
-		campotipo.setHorizontalAlignment(SwingConstants.LEFT);
-		campotipo.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		campotipo.setColumns(10);
-		campotipo.setBounds(532, 10, 120, 30);
-		panel.add(campotipo);
+		campoTipo = new JTextField();
+		campoTipo.setHorizontalAlignment(SwingConstants.LEFT);
+		campoTipo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		campoTipo.setColumns(10);
+		campoTipo.setBounds(532, 10, 120, 30);
+		painel.add(campoTipo);
 
-		campotam = new JTextField();
-		campotam.setHorizontalAlignment(SwingConstants.LEFT);
-		campotam.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		campotam.setColumns(10);
-		campotam.setBounds(662, 10, 50, 30);
-		panel.add(campotam);
+		campoTam = new JTextField();
+		campoTam.setHorizontalAlignment(SwingConstants.LEFT);
+		campoTam.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		campoTam.setColumns(10);
+		campoTam.setBounds(662, 10, 50, 30);
+		painel.add(campoTam);
 
-		campovaloruni = new JTextField();
-		campovaloruni.setHorizontalAlignment(SwingConstants.LEFT);
-		campovaloruni.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		campovaloruni.setColumns(10);
-		campovaloruni.setBounds(722, 10, 90, 30);
-		panel.add(campovaloruni);
+		campoValorUni = new JTextField();
+		campoValorUni.setHorizontalAlignment(SwingConstants.LEFT);
+		campoValorUni.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		campoValorUni.setColumns(10);
+		campoValorUni.setBounds(722, 10, 90, 30);
+		painel.add(campoValorUni);
 		//botão para remover esse sapato (inserção incorreta)
 		remover = new JButton("X");
 		remover.setHorizontalAlignment(SwingConstants.LEFT);
@@ -251,63 +253,63 @@ public class EfetuarVenda  {
 		remover.setForeground(Color.MAGENTA);
 		remover.setBounds(820, 10, 40, 30);
 		remover.addActionListener(contEV);
-		panel.add(remover);
+		painel.add(remover);
 		
 //legenda para descri��o do sapato
-		JLabel lblCodigoSapato = new JLabel("C\u00F3digo do Sapato");
-		lblCodigoSapato.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCodigoSapato.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblCodigoSapato.setBounds(10, 210, 114, 30);
-		frame.getContentPane().add(lblCodigoSapato);
+		JLabel legendaCodigoSapato = new JLabel("C\u00F3digo do Sapato");
+		legendaCodigoSapato.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaCodigoSapato.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		legendaCodigoSapato.setBounds(10, 210, 114, 30);
+		frame.getContentPane().add(legendaCodigoSapato);
 				
-		JLabel lblMarca = new JLabel("Marca");
-		lblMarca.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMarca.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblMarca.setBounds(146, 210, 46, 30);
-		frame.getContentPane().add(lblMarca);
+		JLabel legendaMarca = new JLabel("Marca");
+		legendaMarca.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaMarca.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		legendaMarca.setBounds(146, 210, 46, 30);
+		frame.getContentPane().add(legendaMarca);
 				
-		JLabel lblColecao = new JLabel("Cole\u00E7\u00E3o");
-		lblColecao.setHorizontalAlignment(SwingConstants.CENTER);
-		lblColecao.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblColecao.setBounds(268, 210, 57, 30);
-		frame.getContentPane().add(lblColecao);
+		JLabel legendaColecao = new JLabel("Cole\u00E7\u00E3o");
+		legendaColecao.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaColecao.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		legendaColecao.setBounds(268, 210, 57, 30);
+		frame.getContentPane().add(legendaColecao);
 				
-		JLabel lblModelo = new JLabel("Modelo");
-		lblModelo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblModelo.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblModelo.setBounds(410, 210, 46, 30);
-		frame.getContentPane().add(lblModelo);
+		JLabel legendaModelo = new JLabel("Modelo");
+		legendaModelo.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaModelo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		legendaModelo.setBounds(410, 210, 46, 30);
+		frame.getContentPane().add(legendaModelo);
 				
-		JLabel lblTipo = new JLabel("Tipo");
-		lblTipo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTipo.setBounds(533, 210, 34, 30);
-		frame.getContentPane().add(lblTipo);
+		JLabel legendaTipo = new JLabel("Tipo");
+		legendaTipo.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaTipo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		legendaTipo.setBounds(533, 210, 34, 30);
+		frame.getContentPane().add(legendaTipo);
 				
-		JLabel lblTamanho = new JLabel("TAM");
-		lblTamanho.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTamanho.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTamanho.setBounds(665, 210, 34, 30);
-		frame.getContentPane().add(lblTamanho);
+		JLabel legendaTamanho = new JLabel("TAM");
+		legendaTamanho.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaTamanho.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		legendaTamanho.setBounds(665, 210, 34, 30);
+		frame.getContentPane().add(legendaTamanho);
 				
-		JLabel lblValorUNIT = new JLabel("Valor UNIT");
-		lblValorUNIT.setHorizontalAlignment(SwingConstants.CENTER);
-		lblValorUNIT.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblValorUNIT.setBounds(723, 210, 80, 30);
-		frame.getContentPane().add(lblValorUNIT);
+		JLabel legendaValorUnit = new JLabel("Valor UNIT");
+		legendaValorUnit.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaValorUnit.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		legendaValorUnit.setBounds(723, 210, 80, 30);
+		frame.getContentPane().add(legendaValorUnit);
 
-		JLabel lblRemover = new JLabel("Remover");
-		lblRemover.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRemover.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblRemover.setBounds(800, 210, 80, 30);
-		frame.getContentPane().add(lblRemover);
+		JLabel legendaRemover = new JLabel("Remover");
+		legendaRemover.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaRemover.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		legendaRemover.setBounds(800, 210, 80, 30);
+		frame.getContentPane().add(legendaRemover);
 
 //legenda do Campo que exibir� o total parcial e final da venda
-		JLabel lblTotal = new JLabel("Total");
-		lblTotal.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTotal.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTotal.setBounds(10, 490, 34, 30);
-		frame.getContentPane().add(lblTotal);
+		JLabel legendaTotal = new JLabel("Total");
+		legendaTotal.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaTotal.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		legendaTotal.setBounds(10, 490, 34, 30);
+		frame.getContentPane().add(legendaTotal);
 
 //bot�o de confirmar
 		confirmar = new JButton("CONFIRMAR");
@@ -324,19 +326,19 @@ public class EfetuarVenda  {
 		frame.getContentPane().add(cancelar);
 		
 //campo do total
-		campototal = new JTextField();
-		campototal.setHorizontalAlignment(SwingConstants.LEFT);
-		campototal.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		campototal.setColumns(10);
-		campototal.setBounds(50, 490, 80, 30);
-		frame.getContentPane().add(campototal);
-		campototal.setText(String.format("%.2f", 0.00));
+		campoTotal = new JTextField();
+		campoTotal.setHorizontalAlignment(SwingConstants.LEFT);
+		campoTotal.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		campoTotal.setColumns(10);
+		campoTotal.setBounds(50, 490, 80, 30);
+		frame.getContentPane().add(campoTotal);
+		campoTotal.setText(String.format("%.2f", 0.00));
 
 // aumenta os campos de adicionar itens de venda
-		adicionar_item = new JButton("Adicionar");
-		adicionar_item.setBounds(356, 490, 140, 30);
-		frame.getContentPane().add(adicionar_item);
-		adicionar_item.addActionListener(contEV);
+		adicionarItem = new JButton("Adicionar");
+		adicionarItem.setBounds(356, 490, 140, 30);
+		frame.getContentPane().add(adicionarItem);
+		adicionarItem.addActionListener(contEV);
 
 	} // FIM DO INICIALIZE
 
@@ -344,12 +346,12 @@ public class EfetuarVenda  {
 		return frame;
 	}
 	
-	public JTextField getCampoVendedor(){
-		return campoVendedor;
+	public JTextField getCampoCpfVendedor(){
+		return campoCpfVendedor;
 	}
 
-	public JTextField getCampoCliente() {
-		return campoCliente;
+	public JTextField getCampoCpfCliente() {
+		return campoCpfCliente;
 	}
 
 	public JTextField getCampoDesconto() {
@@ -360,32 +362,32 @@ public class EfetuarVenda  {
 		return escolhePagamento;
 	}
 
-	public JPanel getPanel() {
-		return panel;
+	public JPanel getPainel() {
+		return painel;
 	}
 
-	public JTextField getCampocolecao() {
-		return campocolecao;
+	public JTextField getCampoColecao() {
+		return campoColecao;
 	}
 
 	public JTextField getCampoMarca() {
 		return campoMarca;
 	}
 
-	public JTextField getCampomodelo() {
-		return campomodelo;
+	public JTextField getCampoModelo() {
+		return campoModelo;
 	}
 
 	public JTextField getCampoParcelas() {
 		return campoParcelas;
 	}
 
-	public JTextField getCampotam() {
-		return campotam;
+	public JTextField getCampoTam() {
+		return campoTam;
 	}
 
-	public JTextField getCampotipo() {
-		return campotipo;
+	public JTextField getCampoTipo() {
+		return campoTipo;
 	}
 
 	public JTextField getCodigoVenda() {
@@ -396,12 +398,12 @@ public class EfetuarVenda  {
 		return dataAtual;
 	}
 
-	public JTextField getCodigo_sapato() {
-		return codigo_sapato;
+	public JTextField getCodigoSapato() {
+		return codigoSapato;
 	}
 
-	public JButton getAdicionar_item() {
-		return adicionar_item;
+	public JButton getAdicionarItem() {
+		return adicionarItem;
 	}
 
 	public JButton getCancelar() {
@@ -416,12 +418,12 @@ public class EfetuarVenda  {
 		return remover;
 	}
 
-	public JTextField getCampototal() {
-		return campototal;
+	public JTextField getCampoTotal() {
+		return campoTotal;
 	}
 
-	public JTextField getCampovaloruni() {
-		return campovaloruni;
+	public JTextField getCampoValorUni() {
+		return campoValorUni;
 	}
 
 

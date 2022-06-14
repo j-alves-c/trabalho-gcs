@@ -17,8 +17,7 @@ import java.util.ArrayList;
 
 
 public class ControlaED implements ActionListener, FocusListener {
-    private final Connection conexao;
-    private final EfetuarDevolucao efetuarDevolucao;
+    private static final ArrayList<ItemDevolucao> PRODUTOS = new ArrayList<>();
     private static Vendedor vendedor;
     private static Cliente cliente;
     private static InterfaceDAO<Sapato, Double> persistSapato = null;
@@ -30,22 +29,23 @@ public class ControlaED implements ActionListener, FocusListener {
     private static InterfaceDAO<Cliente, String> persistCliente = null;
     private static Venda venda;
     private static Devolucao devolucao;
-    private static final ArrayList<ItemDevolucao> produtos = new ArrayList<>();
+    private final Connection CONEXAO;
+    private final EfetuarDevolucao EFETUAR_DEVOLUCAO;
     private int posicao = -50;
     private double total = 0;
 
-    public ControlaED(EfetuarDevolucao efetuarDevolucao) {
-        conexao = ConexaoBD.conectar();
-        this.efetuarDevolucao = efetuarDevolucao;
+    public ControlaED(EfetuarDevolucao EFETUAR_DEVOLUCAO) {
+        CONEXAO = ConexaoBD.conectar();
+        this.EFETUAR_DEVOLUCAO = EFETUAR_DEVOLUCAO;
         try {
-            persistSapato = new SapatoDao(conexao);
+            persistSapato = new SapatoDao(CONEXAO);
         } catch (Exception e) {
 
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         try {
-            persistVendidos = new ItemVendadao(conexao);
+            persistVendidos = new ItemVendadao(CONEXAO);
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -54,22 +54,14 @@ public class ControlaED implements ActionListener, FocusListener {
 
 
         try {
-            persistVenda = new VendaDao(conexao);
+            persistVenda = new VendaDao(CONEXAO);
         } catch (Exception e) {
 
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         try {
-            persistDevolucao = new DevolucaoDao(conexao);
-        } catch (Exception e) {
-
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-
-        try {
-            persistVendedor = new VendedorDao(conexao);
+            persistDevolucao = new DevolucaoDao(CONEXAO);
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -77,16 +69,24 @@ public class ControlaED implements ActionListener, FocusListener {
         }
 
         try {
-            persistCliente = new ClienteDao(conexao);
+            persistVendedor = new VendedorDao(CONEXAO);
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+        try {
+            persistCliente = new ClienteDao(CONEXAO);
         } catch (Exception e) {
 
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         try {
-            persistItem = new ItemDevolucaoDao(conexao);
+            persistItem = new ItemDevolucaoDao(CONEXAO);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -94,62 +94,75 @@ public class ControlaED implements ActionListener, FocusListener {
 
     }
 
-    public void atualizaData(){
+    private static void inserirItensAtuais(ArrayList<ItemDevolucao> lista) {
+        for (ItemDevolucao est : lista) {
+            persistItem.inserir(est);
+        }
+    }
+
+    private static String imprimirItensAtuais(ArrayList<ItemDevolucao> lista) {
+        String string = "";
+        for (ItemDevolucao est : lista) {
+            string += "C\u00f3digo do Item " + est.getCodigoItemDevolucao() + " C\u00f3digo de barras  " + String.format("%2f", est.getSapato().getCodigoDeBarras()) + "\n";
+        }
+        return string;
+    }
+
+    public void atualizaData() {
         // criar uma vari\u00e1vel Date para captar a data.
         Date data = new Date(System.currentTimeMillis());
         //formatar pra String
         SimpleDateFormat formatarDate = new SimpleDateFormat("dd/MM/yyyy");
         // settar a data do dia no campo da data.
-        efetuarDevolucao.getCampoDataDevolucao().setText(formatarDate.format(data));
+        EFETUAR_DEVOLUCAO.getCampoDataDevolucao().setText(formatarDate.format(data));
     }
 
-    public void comecaDevolucao(){
+    public void comecaDevolucao() {
         // busca o código da última devolucao armazenada no banco e acresce de um para exibir o da devolucao nova que ser\u00e1 armazenada
 
         assert persistDevolucao != null;
         int codigo = ((DevolucaoDao) persistDevolucao).buscarCodigo() + 1;
-        efetuarDevolucao.getCampoCodigoDevolucao().setText(  "" + codigo);
+        EFETUAR_DEVOLUCAO.getCampoCodigoDevolucao().setText("" + codigo);
         devolucao = new Devolucao();
-        devolucao.setCodigoDaDevolucao(Integer.parseInt(efetuarDevolucao.getCampoCodigoDevolucao().getText()));
+        devolucao.setCodigoDaDevolucao(Integer.parseInt(EFETUAR_DEVOLUCAO.getCampoCodigoDevolucao().getText()));
         //seta a data da venda para a data do dia atual.
-        devolucao.setDataDevolucao(efetuarDevolucao.getCampoDataDevolucao().getText());
+        devolucao.setDataDevolucao(EFETUAR_DEVOLUCAO.getCampoDataDevolucao().getText());
     }
+
     @Override
     public void actionPerformed(ActionEvent EventoBotao) {
-        if (EventoBotao.getSource().equals(efetuarDevolucao.getBtnCancelar())){
+        if (EventoBotao.getSource().equals(EFETUAR_DEVOLUCAO.getCancelar())) {
             cancelarDevolucao();
-        }
-        else if (EventoBotao.getSource().equals(efetuarDevolucao.getBtnConfirmar())){
+        } else if (EventoBotao.getSource().equals(EFETUAR_DEVOLUCAO.getConfirmar())) {
             confirma();
 
 
         }
 
     }
-    private void confirma(){
+
+    private void confirma() {
         int conf = JOptionPane.showConfirmDialog(null, "Deseja confirmar a devolu\u00e7\u00e3o", "Confirmar", JOptionPane.YES_NO_OPTION);
         if (conf == JOptionPane.YES_OPTION)
             finalizarDevolucao();
 
     }
 
-
     private void finalizarDevolucao() {
-        if (vendedor != null && cliente != null && !produtos.isEmpty() && venda != null){
-            devolucao.setProdutos(produtos);
+        if (vendedor != null && cliente != null && !PRODUTOS.isEmpty() && venda != null) {
+            devolucao.setProdutos(PRODUTOS);
             persistDevolucao.inserir(devolucao);
-           inserirItensAtuais(devolucao.getProdutos());
-            JOptionPane.showMessageDialog(null," Devolu\u00e7\u00e3o efetuada com sucesso!!!"+"\n"
-                    +"\n"+ persistDevolucao.buscarPorCodigo(devolucao.getCodigoDaDevolucao()).toString() +", C\u00F3digoVenda=" + venda.getCodigo() + "\n "+ "Cliente " + cliente.getNome()+ "\n "+ "Vendedor " + vendedor.getNome()+ "\n"+"Total devolvido:" + String.format("%.2f", total) + "\n" + imprimirItensAtuais(persistItem.listaTodos()));
+            inserirItensAtuais(devolucao.getProdutos());
+            JOptionPane.showMessageDialog(null, " Devolu\u00e7\u00e3o efetuada com sucesso!!!" + "\n"
+                    + "\n" + persistDevolucao.buscarPorCodigo(devolucao.getCodigoDaDevolucao()).toString() + ", C\u00F3digoVenda=" + venda.getCodigo() + "\n " + "Cliente " + cliente.getNome() + "\n " + "Vendedor " + vendedor.getNome() + "\n" + "Total devolvido:" + String.format("%.2f", total) + "\n" + imprimirItensAtuais(persistItem.listaTodos()));
 
             int codigo1 = ((DevolucaoDao) persistDevolucao).buscarCodigo() + 1;
-            efetuarDevolucao.getCampoCodigoDevolucao().setText( "" + codigo1);
+            EFETUAR_DEVOLUCAO.getCampoCodigoDevolucao().setText("" + codigo1);
             limpaCampo();
             atualizaInfo();
-        }
-        else {
+        } else {
 
-            JOptionPane.showMessageDialog(null,"Algo est\u00e1 incorreto com o vendedor, cliente, venda ou n\u00e3o foi cadastrado nenhum item para devolu\u00e7\u00e3o." );
+            JOptionPane.showMessageDialog(null, "Algo est\u00e1 incorreto com o vendedor, cliente, venda ou n\u00e3o foi cadastrado nenhum item para devolu\u00e7\u00e3o.");
         }
 
 
@@ -157,8 +170,8 @@ public class ControlaED implements ActionListener, FocusListener {
 
     private void cancelarDevolucao() {
         limpaCampo();
-        produtos.removeAll(produtos);
-        JOptionPane.showMessageDialog(null,"Fechando o Sistema!");
+        PRODUTOS.removeAll(PRODUTOS);
+        JOptionPane.showMessageDialog(null, "Fechando o Sistema!");
         ConexaoBD.closeconexao();
 
         System.exit(0);
@@ -166,49 +179,67 @@ public class ControlaED implements ActionListener, FocusListener {
     }
 
     private void limpaCampo() {
-        efetuarDevolucao.getCampoCpfVendedor().setText("");
-        efetuarDevolucao.getCampoCodigoVenda().setText("");
-        efetuarDevolucao.getCampoCpfCliente().setText("");
-        efetuarDevolucao.getCampoDataVenda().setText("");
-        efetuarDevolucao.getCampoNomeCliente().setText("");
-        efetuarDevolucao.getCampoNomeVendedor().setText("");
-        efetuarDevolucao.getCampoValor().setText("0,00");
-        for (int i=0; i < efetuarDevolucao.getPanel().getComponentCount(); i++) {
+        EFETUAR_DEVOLUCAO.getCampoCpfVendedor().setText("");
+        EFETUAR_DEVOLUCAO.getCampoCodigoVenda().setText("");
+        EFETUAR_DEVOLUCAO.getCampoCpfCliente().setText("");
+        EFETUAR_DEVOLUCAO.getCampoDataVenda().setText("");
+        EFETUAR_DEVOLUCAO.getCampoNomeCliente().setText("");
+        EFETUAR_DEVOLUCAO.getCampoNomeVendedor().setText("");
+        EFETUAR_DEVOLUCAO.getCampoValor().setText("0,00");
+        for (int i = 0; i < EFETUAR_DEVOLUCAO.getPainel().getComponentCount(); i++) {
             //varre todos os componentes do painel
-            Component c = efetuarDevolucao.getPanel().getComponent(i);
+            Component c = EFETUAR_DEVOLUCAO.getPainel().getComponent(i);
 
             if (c instanceof JTextField) {
                 //apaga os valores das TextField
                 JTextField field = (JTextField) c;
                 field.setText("");
-            }}
+            }
+        }
 
 
     }
 
-    private void validaCpf(){
-        if (efetuarDevolucao.getCampoCpfVendedor().getText() == null || efetuarDevolucao.getCampoCpfVendedor().getText().equals("") || efetuarDevolucao.getCampoCpfVendedor().getText().equals(" ")  ){
-            JOptionPane.showMessageDialog(new JFrame(), " Vendedor n\u00e3o preenchido!" );
+    private void validaCpf() {
+        if (EFETUAR_DEVOLUCAO.getCampoCpfVendedor().getText() == null || EFETUAR_DEVOLUCAO.getCampoCpfVendedor().getText().equals("") || EFETUAR_DEVOLUCAO.getCampoCpfVendedor().getText().equals(" ")) {
+            JOptionPane.showMessageDialog(new JFrame(), " Vendedor n\u00e3o preenchido!");
 
         } else {
             //busca o vendedor no banco.
-            vendedor = persistVendedor.buscarPorCodigo(efetuarDevolucao.getCampoCpfVendedor().getText());
+            vendedor = persistVendedor.buscarPorCodigo(EFETUAR_DEVOLUCAO.getCampoCpfVendedor().getText());
             // checa se o vendedor existe antes de armazenar na vari\u00e1vel venda.
             if (vendedor != null) {
-                efetuarDevolucao.getCampoNomeVendedor().setText(vendedor.getNome());
+                EFETUAR_DEVOLUCAO.getCampoNomeVendedor().setText(vendedor.getNome());
 
-            } else{
-                JOptionPane.showMessageDialog(new JFrame(), "Vendedor inv\u00e1lido!");}
+            } else {
+                JOptionPane.showMessageDialog(new JFrame(), "Vendedor inv\u00e1lido!");
+            }
+        }
+    }
+
+    private void validaNome() {
+        if (EFETUAR_DEVOLUCAO.getCampoNomeVendedor().getText() == null || EFETUAR_DEVOLUCAO.getCampoNomeVendedor().getText().equals("") || EFETUAR_DEVOLUCAO.getCampoNomeVendedor().getText().equals(" ")) {
+            JOptionPane.showMessageDialog(new JFrame(), " Vendedor n\u00e3o preenchido!");
+
+        } else {
+            //busca o vendedor no banco.
+            vendedor = ((VendedorDao) persistVendedor).buscarPorNome(EFETUAR_DEVOLUCAO.getCampoNomeVendedor().getText());
+            // checa se o vendedor existe antes de armazenar na vari\u00e1vel venda.
+            if (vendedor != null) {
+                EFETUAR_DEVOLUCAO.getCampoCpfVendedor().setText(vendedor.getCPF());
+
+            } else {
+                JOptionPane.showMessageDialog(new JFrame(), "Vendedor inv\u00e1lido!");
+            }
         }
     }
 
     private void validaCodigo() {
-        if (efetuarDevolucao.getCampoCodigoVenda().getText() == null || efetuarDevolucao.getCampoCodigoVenda().getText().equals("") || efetuarDevolucao.getCampoCodigoVenda().getText().equals(" ")  ){
-            JOptionPane.showMessageDialog(new JFrame(), "C\u00f3digo da venda n\u00e3o preenchido!" );
+        if (EFETUAR_DEVOLUCAO.getCampoCodigoVenda().getText() == null || EFETUAR_DEVOLUCAO.getCampoCodigoVenda().getText().equals("") || EFETUAR_DEVOLUCAO.getCampoCodigoVenda().getText().equals(" ")) {
+            JOptionPane.showMessageDialog(new JFrame(), "C\u00f3digo da venda n\u00e3o preenchido!");
 
-        } else if (isInteger(efetuarDevolucao.getCampoCodigoVenda().getText()) ) {
-            adicionaVenda(Integer.parseInt(efetuarDevolucao.getCampoCodigoVenda().getText()));
-
+        } else if (isInteger(EFETUAR_DEVOLUCAO.getCampoCodigoVenda().getText())) {
+            adicionaVenda(Integer.parseInt(EFETUAR_DEVOLUCAO.getCampoCodigoVenda().getText()));
 
 
         }
@@ -221,81 +252,78 @@ public class ControlaED implements ActionListener, FocusListener {
     }
 
     private boolean comparaData() {
-        int anoDev = Integer.parseInt(efetuarDevolucao.getCampoDataDevolucao().getText().substring(6,10));
+        int anoDev = Integer.parseInt(EFETUAR_DEVOLUCAO.getCampoDataDevolucao().getText().substring(6, 10));
 
-        int anoVenda = Integer.parseInt(efetuarDevolucao.getCampoDataVenda().getText().substring(6,10));
+        int anoVenda = Integer.parseInt(EFETUAR_DEVOLUCAO.getCampoDataVenda().getText().substring(6, 10));
         boolean data = true;
-        boolean confirmadata = true;
-        while (data && confirmadata){
-            if (anoDev != anoVenda)
-            {
+        boolean confirmaData = true;
+        while (data && confirmaData) {
+            if (anoDev != anoVenda) {
                 data = false;
 
-            }
-            else{
+            } else {
 
                 int mesDev;
-                try{
-                    mesDev =Integer.parseInt(efetuarDevolucao.getCampoDataDevolucao().getText().substring(3,5));}
-                catch (StringIndexOutOfBoundsException e){
-                    mesDev =Integer.parseInt(efetuarDevolucao.getCampoDataDevolucao().getText().substring(3,5));
+                try {
+                    mesDev = Integer.parseInt(EFETUAR_DEVOLUCAO.getCampoDataDevolucao().getText().substring(3, 5));
+                } catch (StringIndexOutOfBoundsException e) {
+                    mesDev = Integer.parseInt(EFETUAR_DEVOLUCAO.getCampoDataDevolucao().getText().substring(3, 5));
                 }
 
                 int mesVenda;
-                try{
-                    mesVenda =Integer.parseInt(efetuarDevolucao.getCampoDataVenda().getText().substring(3,5));}
-                catch (StringIndexOutOfBoundsException e){
-                    mesVenda =Integer.parseInt(efetuarDevolucao.getCampoDataVenda().getText().substring(3,5));
+                try {
+                    mesVenda = Integer.parseInt(EFETUAR_DEVOLUCAO.getCampoDataVenda().getText().substring(3, 5));
+                } catch (StringIndexOutOfBoundsException e) {
+                    mesVenda = Integer.parseInt(EFETUAR_DEVOLUCAO.getCampoDataVenda().getText().substring(3, 5));
                 }
 
-               if (mesDev != mesVenda)
-                {
+                if (mesDev != mesVenda) {
                     data = false;
-                }
-                else{
-                    int diaDev = Integer.parseInt(efetuarDevolucao.getCampoDataDevolucao().getText().substring(0,2));
+                } else {
+                    int diaDev = Integer.parseInt(EFETUAR_DEVOLUCAO.getCampoDataDevolucao().getText().substring(0, 2));
 
-                    int diaVenda = Integer.parseInt(efetuarDevolucao.getCampoDataVenda().getText().substring(0,2));
+                    int diaVenda = Integer.parseInt(EFETUAR_DEVOLUCAO.getCampoDataVenda().getText().substring(0, 2));
 
-                    if (diaDev - diaVenda > 3){
+                    if (diaDev - diaVenda > 3) {
                         data = false;
-                    }
-                    else{
+                    } else {
                         data = true;
-                        confirmadata = false;
+                        confirmaData = false;
                     }
                 }
 
             }
         }
-        return  data;
-        }
-    private void limpaPainel(){
-        efetuarDevolucao.getPanel().removeAll();
-        efetuarDevolucao.getPanel().repaint();
+        return data;
+    }
+
+    private void limpaPainel() {
+        EFETUAR_DEVOLUCAO.getPainel().removeAll();
+        EFETUAR_DEVOLUCAO.getPainel().repaint();
         posicao = -50;
     }
-    private void limpaCampoVenda(){
-        efetuarDevolucao.getCampoCodigoVenda().setText("");
-        efetuarDevolucao.getCampoCpfCliente().setText("");
-        efetuarDevolucao.getCampoDataVenda().setText("");
-        efetuarDevolucao.getCampoNomeCliente().setText("");
+
+    private void limpaCampoVenda() {
+        EFETUAR_DEVOLUCAO.getCampoCodigoVenda().setText("");
+        EFETUAR_DEVOLUCAO.getCampoCpfCliente().setText("");
+        EFETUAR_DEVOLUCAO.getCampoDataVenda().setText("");
+        EFETUAR_DEVOLUCAO.getCampoNomeCliente().setText("");
         atualizaInfo();
     }
-    private void atualizaInfo(){
-        if (produtos!=null){
-            produtos.removeAll(produtos);
+
+    private void atualizaInfo() {
+        if (PRODUTOS != null) {
+            PRODUTOS.removeAll(PRODUTOS);
             limpaPainel();
             total = 0;
             //atualiza a exibição do total
-            efetuarDevolucao.getCampoValor().setText(String.format("%.2f", total));
-        }
-        else{
+            EFETUAR_DEVOLUCAO.getCampoValor().setText(String.format("%.2f", total));
+        } else {
             limpaPainel();
         }
     }
 
-    private void adicionaVenda(int codigo){
+    private void adicionaVenda(int codigo) {
         if (venda != null)
             atualizaInfo();
 
@@ -303,66 +331,108 @@ public class ControlaED implements ActionListener, FocusListener {
         venda = persistVenda.buscarPorCodigo(codigo);
         if (venda != null) {
             cliente = persistCliente.buscarPorCodigo(venda.getCliente().getCPF());
-            efetuarDevolucao.getCampoCpfCliente().setText(venda.getCliente().getCPF());
-            efetuarDevolucao.getCampoNomeCliente().setText(cliente.getNome());
+            EFETUAR_DEVOLUCAO.getCampoCpfCliente().setText(venda.getCliente().getCPF());
+            EFETUAR_DEVOLUCAO.getCampoNomeCliente().setText(cliente.getNome());
 
-            efetuarDevolucao.getCampoDataVenda().setText((venda.getDatavenda()));
-            boolean validade =  comparaData();
+            EFETUAR_DEVOLUCAO.getCampoDataVenda().setText((venda.getDatavenda()));
+            boolean validade = comparaData();
 
-            if (validade){
+            if (validade) {
                 devolucao.setVenda(venda);
                 ArrayList<ItemVenda> vendidos = ((ItemVendadao) persistVendidos).listaTodosDeVenda(venda.getCodigo());
-                for(ItemVenda est:vendidos){
+                for (ItemVenda est : vendidos) {
                     adicionaField(est.getSapato().getCodigoDeBarras());
                 }
-            }else{
-                JOptionPane.showMessageDialog(null," Tempo de devolu\u00e7\u00e3o excedido!");
+            } else {
+                JOptionPane.showMessageDialog(null, " Tempo de devolu\u00e7\u00e3o excedido!");
                 limpaCampoVenda();
 
 
             }
 
 
-
-        } else{
+        } else {
             JOptionPane.showMessageDialog(new JFrame(), "C\u00f3digo inv\u00e1lido!");
             limpaCampoVenda();
         }
 
 
     }
+    //checar se é valor inteiro.
 
     @Override
     public void focusGained(FocusEvent e) {
+        if (e.getSource().equals(EFETUAR_DEVOLUCAO.getCampoNomeVendedor())) {
+            JPopupMenu menu = new JPopupMenu();
+            ArrayList<Vendedor> vendedores = persistVendedor.listaTodos();
+            for (Vendedor vendedor : vendedores) {
+                JMenuItem item = new JMenuItem();
+                item.setText(vendedor.getNome());
+                item.addActionListener(e1 -> {
+                    EFETUAR_DEVOLUCAO.getCampoNomeVendedor().setText(item.getText());
+                    menu.setVisible(false);
+                });
+                menu.add(item);
 
+            }
+            EFETUAR_DEVOLUCAO.getCampoNomeVendedor().setComponentPopupMenu(menu);
+            menu.setLocation(EFETUAR_DEVOLUCAO.getCampoNomeVendedor().getX() + 85,
+                    EFETUAR_DEVOLUCAO.getCampoNomeVendedor().getY() + 5 * EFETUAR_DEVOLUCAO.getCampoNomeVendedor().getHeight());
+            menu.setVisible(true);
+
+
+        } else if (e.getSource().equals(EFETUAR_DEVOLUCAO.getCampoCpfVendedor())) {
+            JPopupMenu menu = new JPopupMenu();
+            ArrayList<Vendedor> vendedores = persistVendedor.listaTodos();
+            for (Vendedor vendedor : vendedores) {
+                JMenuItem jMenuItem = new JMenuItem();
+                jMenuItem.setText(vendedor.getCPF());
+                jMenuItem.addActionListener(e12 -> {
+                    EFETUAR_DEVOLUCAO.getCampoCpfVendedor().setText(jMenuItem.getText());
+                    menu.setVisible(false);
+                });
+                menu.add(jMenuItem);
+
+            }
+            EFETUAR_DEVOLUCAO.getCampoCpfVendedor().setComponentPopupMenu(menu);
+            menu.setLocation(EFETUAR_DEVOLUCAO.getCampoCpfVendedor().getX() + 90,
+                    EFETUAR_DEVOLUCAO.getCampoCpfVendedor().getY() + 5 * EFETUAR_DEVOLUCAO.getCampoCpfVendedor().getHeight());
+            menu.setVisible(true);
+
+
+        }
     }
 
     @Override
     public void focusLost(FocusEvent EventoCampo) {
-        if (EventoCampo.getSource().equals(efetuarDevolucao.getCampoCpfVendedor())){
+        if (EventoCampo.getSource().equals(EFETUAR_DEVOLUCAO.getCampoCpfVendedor())) {
             validaCpf();
+            EFETUAR_DEVOLUCAO.getCampoCpfVendedor().getComponentPopupMenu().setVisible(false);
         }
-        else if (EventoCampo.getSource().equals(efetuarDevolucao.getCampoCodigoVenda())){
+        //Valida cpfVendedor
+        else if (EventoCampo.getSource().equals(EFETUAR_DEVOLUCAO.getCampoNomeVendedor())) {
+            validaNome();
+            EFETUAR_DEVOLUCAO.getCampoNomeVendedor().getComponentPopupMenu().setVisible(false);
+        } else if (EventoCampo.getSource().equals(EFETUAR_DEVOLUCAO.getCampoCodigoVenda())) {
             validaCodigo();
 
 
         }
     }
-    //checar se é valor inteiro.
 
-    private  boolean isInteger(String s) {
+    private boolean isInteger(String s) {
         try {
             Integer.parseInt(s);
-        } catch(NumberFormatException | NullPointerException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             return false;
         }
 
         return true;
     }
 
-    private Sapato BuscarSap(double codigo,JTextField marca,JTextField colecao,JTextField modelo,JTextField tipo,JTextField tamanho,JTextField valor){
+    private Sapato BuscarSap(double codigo, JTextField marca, JTextField colecao, JTextField modelo, JTextField tipo, JTextField tamanho, JTextField valor) {
 
-        Sapato sapato =persistSapato.buscarPorCodigo(codigo);
+        Sapato sapato = persistSapato.buscarPorCodigo(codigo);
         if (sapato != null) {
 
             //preenche os campos que descrevem o sapato
@@ -375,17 +445,19 @@ public class ControlaED implements ActionListener, FocusListener {
             return sapato;
         }
         // retorna que o código não é v\u00e1lido, ou seja, não h\u00e1 sapato cadastrado
-        else{
-            JOptionPane.showMessageDialog(null, "c\u00F3digo de Barras Inv\u00e1lido " );
-            return null;}
+        else {
+            JOptionPane.showMessageDialog(null, "c\u00F3digo de Barras Inv\u00e1lido ");
+            return null;
+        }
     }
 
-    private boolean checaItem(int codigo,double cod){
-        ItemDevolucao item = ((ItemDevolucaoDao)persistItem).checaChave(codigo, cod);
+    private boolean checaItem(int codigo, double cod) {
+        ItemDevolucao item = ((ItemDevolucaoDao) persistItem).checaChave(codigo, cod);
         return item != null;
     }
-    private void adicionaItemDevolucao(Sapato sapato,boolean existente){
-        if (!existente){
+
+    private void adicionaItemDevolucao(Sapato sapato, boolean existente) {
+        if (!existente) {
             // inicializa um item de venda pra guard\u00e1-lo
             ItemDevolucao item = new ItemDevolucao();
             //refere o sapato no item venda
@@ -395,19 +467,19 @@ public class ControlaED implements ActionListener, FocusListener {
             //atualiza o total
             total = total + item.getValorUnitario();
             //atualiza a exibição do total
-            efetuarDevolucao.getCampoValor().setText(String.format("%.2f", total));
+            EFETUAR_DEVOLUCAO.getCampoValor().setText(String.format("%.2f", total));
             //guarda item venda no vetor de produtos.
-            produtos.add(item);
-            JOptionPane.showMessageDialog(null, ""+ total + " a ser devolvido at\u00E9 agora");
+            PRODUTOS.add(item);
+            JOptionPane.showMessageDialog(null, "" + total + " a ser devolvido at\u00E9 agora");
 
-        }else if (existente){
-            JOptionPane.showMessageDialog(null,"Esse item j\u00e1 foi devolvido em outra devolu\u00e7\u00e3o");
+        } else if (existente) {
+            JOptionPane.showMessageDialog(null, "Esse item j\u00e1 foi devolvido em outra devolu\u00e7\u00e3o");
         }
 
 
-
     }
-    private void adicionaField(double codigo){
+
+    private void adicionaField(double codigo) {
 
         // adiciona os textfield extras + botões de seleção.
         posicao += 50;
@@ -416,9 +488,8 @@ public class ControlaED implements ActionListener, FocusListener {
         novoCampoM.setSize(120, 30);
         novoCampoM.setLocation(142, posicao);
         novoCampoM.setText("");
-        efetuarDevolucao.getPanel().add(novoCampoM);
+        EFETUAR_DEVOLUCAO.getPainel().add(novoCampoM);
         novoCampoM.setVisible(true);
-
 
 
         JTextField novoCampoC = new JTextField();
@@ -426,7 +497,7 @@ public class ControlaED implements ActionListener, FocusListener {
         novoCampoC.setSize(120, 30);
         novoCampoC.setLocation(272, posicao);
         novoCampoC.setText("");
-        efetuarDevolucao.getPanel().add(novoCampoC);
+        EFETUAR_DEVOLUCAO.getPainel().add(novoCampoC);
         novoCampoC.setVisible(true);
 
         JTextField novoCampoMD = new JTextField();
@@ -434,7 +505,7 @@ public class ControlaED implements ActionListener, FocusListener {
         novoCampoMD.setSize(120, 30);
         novoCampoMD.setLocation(402, posicao);
         novoCampoMD.setText("");
-        efetuarDevolucao.getPanel().add(novoCampoMD);
+        EFETUAR_DEVOLUCAO.getPainel().add(novoCampoMD);
         novoCampoMD.setVisible(true);
 
         JTextField novoCampoT = new JTextField();
@@ -442,7 +513,7 @@ public class ControlaED implements ActionListener, FocusListener {
         novoCampoT.setSize(120, 30);
         novoCampoT.setLocation(532, posicao);
         novoCampoT.setText("");
-        efetuarDevolucao.getPanel().add(novoCampoT);
+        EFETUAR_DEVOLUCAO.getPainel().add(novoCampoT);
         novoCampoT.setVisible(true);
 
         JTextField novoCampoTAM = new JTextField();
@@ -450,7 +521,7 @@ public class ControlaED implements ActionListener, FocusListener {
         novoCampoTAM.setSize(50, 30);
         novoCampoTAM.setLocation(662, posicao);
         novoCampoTAM.setText("");
-        efetuarDevolucao.getPanel().add(novoCampoTAM);
+        EFETUAR_DEVOLUCAO.getPainel().add(novoCampoTAM);
         novoCampoTAM.setVisible(true);
 
         JTextField novoCampoValorUNIT = new JTextField();
@@ -458,9 +529,8 @@ public class ControlaED implements ActionListener, FocusListener {
         novoCampoValorUNIT.setSize(90, 30);
         novoCampoValorUNIT.setLocation(722, posicao);
         novoCampoValorUNIT.setText("");
-        efetuarDevolucao.getPanel().add(novoCampoValorUNIT);
+        EFETUAR_DEVOLUCAO.getPainel().add(novoCampoValorUNIT);
         novoCampoValorUNIT.setVisible(true);
-
 
 
         JTextField novoCampoCS = new JTextField();
@@ -469,9 +539,9 @@ public class ControlaED implements ActionListener, FocusListener {
         novoCampoCS.setLocation(12, posicao);
         novoCampoCS.setText("");
 
-        novoCampoCS.setText(String.format("%.2f",codigo));
-        Sapato sapato = BuscarSap(codigo, novoCampoM, novoCampoC, novoCampoMD, novoCampoT, novoCampoTAM,novoCampoValorUNIT);
-        efetuarDevolucao.getPanel().add(novoCampoCS);
+        novoCampoCS.setText(String.format("%.2f", codigo));
+        Sapato sapato = BuscarSap(codigo, novoCampoM, novoCampoC, novoCampoMD, novoCampoT, novoCampoTAM, novoCampoValorUNIT);
+        EFETUAR_DEVOLUCAO.getPainel().add(novoCampoCS);
         novoCampoCS.setVisible(true);
 
 
@@ -484,16 +554,15 @@ public class ControlaED implements ActionListener, FocusListener {
 
 
         selecionaPDevolver.addActionListener(e -> {
-            if (novoCampoM.getForeground().equals(Color.RED)){
+            if (novoCampoM.getForeground().equals(Color.RED)) {
                 JOptionPane.showMessageDialog(null, "Sapato j\u00e1 foi selecionado.");
-            }
-            else{
+            } else {
                 assert sapato != null;
                 boolean existente = checaItem(venda.getCodigo(), sapato.getCodigoDeBarras());
 
                 adicionaItemDevolucao(selecionarPDevolver(sapato.getCodigoDeBarras()), existente);
 
-                if (!existente){
+                if (!existente) {
                     novoCampoM.setForeground(Color.RED);
                     novoCampoC.setForeground(Color.RED);
                     novoCampoT.setForeground(Color.RED);
@@ -508,7 +577,7 @@ public class ControlaED implements ActionListener, FocusListener {
             }
 
         });
-        efetuarDevolucao.getPanel().add(selecionaPDevolver);
+        EFETUAR_DEVOLUCAO.getPainel().add(selecionaPDevolver);
         JButton novoRemover = new JButton("X");
         novoRemover.setFont(new Font("Tahoma", Font.PLAIN, 10));
         novoRemover.setLocation(870, posicao);
@@ -519,12 +588,12 @@ public class ControlaED implements ActionListener, FocusListener {
         novoRemover.addActionListener(e -> {
             assert sapato != null;
             ItemDevolucao itemErrado = compararPraRemover(sapato.getCodigoDeBarras());
-            if (itemErrado != null){
-                produtos.remove(itemErrado);
-                JOptionPane.showMessageDialog(null,"Removido");
+            if (itemErrado != null) {
+                PRODUTOS.remove(itemErrado);
+                JOptionPane.showMessageDialog(null, "Removido");
                 total = total - sapato.getPreco();
-                efetuarDevolucao.getCampoValor().setText(String.format("%.2f",total));
-                JOptionPane.showMessageDialog(null,"Total atualizado: "+ String.format("%.2f",total));
+                EFETUAR_DEVOLUCAO.getCampoValor().setText(String.format("%.2f", total));
+                JOptionPane.showMessageDialog(null, "Total atualizado: " + String.format("%.2f", total));
                 novoCampoM.setForeground(Color.BLACK);
                 novoCampoC.setForeground(Color.BLACK);
                 novoCampoMD.setForeground(Color.BLACK);
@@ -533,23 +602,21 @@ public class ControlaED implements ActionListener, FocusListener {
                 novoCampoValorUNIT.setForeground(Color.BLACK);
                 novoCampoCS.setForeground(Color.BLACK);
             } else {
-                JOptionPane.showMessageDialog(null,"Insira um item primeiro");
+                JOptionPane.showMessageDialog(null, "Insira um item primeiro");
             }
 
         });
-        efetuarDevolucao.getPanel().add(novoRemover);
+        EFETUAR_DEVOLUCAO.getPainel().add(novoRemover);
         //aparecer todos a cada adição.
-        efetuarDevolucao.getPanel().repaint();
-
-
+        EFETUAR_DEVOLUCAO.getPainel().repaint();
 
 
     }
 
     private ItemDevolucao compararPraRemover(double codigoDeBarras) {
         ItemDevolucao errado = null;
-        for(ItemDevolucao est: ControlaED.produtos){
-            if (est.getSapato().getCodigoDeBarras() == codigoDeBarras){
+        for (ItemDevolucao est : ControlaED.PRODUTOS) {
+            if (est.getSapato().getCodigoDeBarras() == codigoDeBarras) {
                 errado = est;
 
             }
@@ -562,21 +629,6 @@ public class ControlaED implements ActionListener, FocusListener {
         return persistSapato.buscarPorCodigo(codigo);
 
     }
-
-    private static void inserirItensAtuais(ArrayList<ItemDevolucao> lista){
-        for(ItemDevolucao est:lista){
-            persistItem.inserir(est);
-        }
-    }
-
-    private static String imprimirItensAtuais(ArrayList<ItemDevolucao> lista){
-        String string = "";
-        for(ItemDevolucao est:lista){
-            string += "C\u00f3digo do Item "+ est.getCodigoItemDevolucao() + " C\u00f3digo de barras  " + String.format("%2f",est.getSapato().getCodigoDeBarras()) +"\n";
-        }
-        return string;
-    }
-
 
 
 }

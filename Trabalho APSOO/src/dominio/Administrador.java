@@ -1,14 +1,14 @@
 package dominio;
 
 public class Administrador extends Usuario {
-	  private boolean permissaoAdministrador;
+    private boolean permissaoAdministrador;
 
-	  public boolean getPermissaoAdministrador() {
-	    return permissaoAdministrador;
-	  }
+    public boolean getPermissaoAdministrador() {
+        return permissaoAdministrador;
+    }
 
-	  public void setPermissaoAdministrador(boolean permissaoAdministrador) {
-	    this.permissaoAdministrador = permissaoAdministrador;
-	  }
+    public void setPermissaoAdministrador(boolean permissaoAdministrador) {
+        this.permissaoAdministrador = permissaoAdministrador;
+    }
 
-	}
+}

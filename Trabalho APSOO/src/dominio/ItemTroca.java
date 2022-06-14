@@ -1,53 +1,39 @@
 package dominio;
 
-public class ItemTroca  {
-	  private int codigoItemTroca;
+public class ItemTroca {
+    private int codigoItemTroca;
 
-	  private Troca troca;
+    private Troca troca;
 
-	  private Sapato sapato;
-	  private double valorUnitario;
+    private Sapato sapato;
+    private double valorUnitario;
 
-	public ItemTroca() {
-	}
+    public ItemTroca() {
+    }
 
-	public int getCodigoItemTroca() {
-			return codigoItemTroca; 
-		}
-	public void setCodigocodigoItemTroca(int codigoItemTroca){
+    public int getCodigoItemTroca() {
+        return codigoItemTroca;
+    }
 
-		this.codigoItemTroca = codigoItemTroca;
-	  }
+    public void setCodigocodigoItemTroca(int codigoItemTroca) {
 
-
-
+        this.codigoItemTroca = codigoItemTroca;
+    }
 
 
+    public void setTroca(Troca troca) {
+        this.troca = troca;
+
+    }
 
 
+    public void setSapato(Sapato sapato) {
+        this.sapato = sapato;
 
+        this.setValorUnitario(sapato.getPreco());
+    }
 
-
-
-
-	public void setTroca(Troca troca) {
-		this.troca = troca;
-
-	}
-
-
-
-
-
-
-
-	public void setSapato(Sapato sapato) {
-		this.sapato = sapato;
-
-		this.setValorUnitario(sapato.getPreco());
-	}
-
-	public void setValorUnitario(double valorUnitario) {
-		this.valorUnitario = valorUnitario;
-	}
+    public void setValorUnitario(double valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
 }
