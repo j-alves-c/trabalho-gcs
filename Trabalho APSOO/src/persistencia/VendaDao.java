@@ -11,16 +11,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class VendaDao implements InterfaceDAO<Venda,Integer>{
+public class VendaDao implements InterfaceDAO<Venda, Integer> {
 
-    private final Connection conexao;
-    public VendaDao() {
-        conexao=ConexaoBD.conectar();
+    private final Connection CONEXAO;
+
+    public VendaDao(Connection connection) {
+        CONEXAO = connection;
     }
+
     @Override
     public void inserir(Venda entidade) {
         try {
-            PreparedStatement preStm=conexao.prepareStatement("" +
+            PreparedStatement preStm = CONEXAO.prepareStatement("" +
                     "insert into venda(desconto,cpfcliente,cpfvendedor, formapagamento,datadavenda) values(?,?,?,?,?)");
             preStm.setString(3, entidade.getVendedor().getCPF());
             preStm.setString(2, entidade.getCliente().getCPF());
@@ -33,17 +35,18 @@ public class VendaDao implements InterfaceDAO<Venda,Integer>{
             String dataBanco = simpleDateFormat.format(dataFormatoHumano);
             preStm.setDate(5, new Date(simpleDateFormat.parse(dataBanco).getTime()));
 
-            int qtd=preStm.executeUpdate();
+            int qtd = preStm.executeUpdate();
 
-            PreparedStatement preStmt=conexao.prepareStatement(
+            PreparedStatement preStmt = CONEXAO.prepareStatement(
                     " select codigodavenda from venda where codigodavenda = (SELECT MAX(codigodavenda) FROM venda)");
-            ResultSet resultado=preStmt.executeQuery();
-            while(resultado.next()){
+            ResultSet resultado = preStmt.executeQuery();
+            while (resultado.next()) {
 
-            entidade.setCodigo(resultado.getInt("codigodavenda"));}
-            if(qtd>0){
+                entidade.setCodigo(resultado.getInt("codigodavenda"));
+            }
+            if (qtd > 0) {
                 System.out.println("Salvo no banco");
-            }else{
+            } else {
                 System.out.println("não foi possivel salvar no banco");
             }
         } catch (SQLException | ParseException e) {
@@ -109,15 +112,14 @@ public class VendaDao implements InterfaceDAO<Venda,Integer>{
     }
 
 
-
     @Override
     public Venda buscarPorCodigo(Integer chave) {
         PreparedStatement preStm;
         try {
-            preStm = conexao.prepareStatement("select * from venda where codigodavenda=? ");
+            preStm = CONEXAO.prepareStatement("select * from venda where codigodavenda=? ");
             preStm.setInt(1, chave);
-            ResultSet resultado=preStm.executeQuery();
-            while(resultado.next()){
+            ResultSet resultado = preStm.executeQuery();
+            while (resultado.next()) {
                 //System.out.println(resultado.getString("nome"));
                 Venda venda = new Venda();
                 venda.setCodigo(resultado.getInt("codigodavenda"));
@@ -129,7 +131,7 @@ public class VendaDao implements InterfaceDAO<Venda,Integer>{
                 venda.getVendedor().setCPF(resultado.getString("cpfvendedor"));
                 venda.setDesconto(resultado.getInt("desconto"));
                 venda.setFormaPagamento(resultado.getString("formapagamento"));
-                Date data =resultado.getDate("datadavenda");
+                Date data = resultado.getDate("datadavenda");
                 SimpleDateFormat formatarDate = new SimpleDateFormat("dd/MM/yyyy");
                 venda.setDatavenda(formatarDate.format(data));
                 return venda;
@@ -144,11 +146,11 @@ public class VendaDao implements InterfaceDAO<Venda,Integer>{
     @Override
     public ArrayList<Venda> listaTodos() {
         PreparedStatement preStm;
-        ArrayList<Venda> lista= new ArrayList<>();
+        ArrayList<Venda> lista = new ArrayList<>();
         try {
-            preStm = conexao.prepareStatement("select * from venda order by codigodavenda asc ");
-            ResultSet resultado=preStm.executeQuery();
-            while(resultado.next()){
+            preStm = CONEXAO.prepareStatement("select * from venda order by codigodavenda asc ");
+            ResultSet resultado = preStm.executeQuery();
+            while (resultado.next()) {
                 //System.out.println(resultado.getString("nome"));
                 Venda venda = new Venda();
                 venda.setCodigo(resultado.getInt("codigodavenda"));
@@ -171,16 +173,15 @@ public class VendaDao implements InterfaceDAO<Venda,Integer>{
     }
 
 
-
     public int buscarCodigo() {
         int codigo = 0;
 
         PreparedStatement preStm;
         try {
 
-            preStm = conexao.prepareStatement("select codigodavenda from venda where codigodavenda = (SELECT MAX(codigodavenda) FROM venda);");
-            ResultSet resultado=preStm.executeQuery();
-            while(resultado.next()){
+            preStm = CONEXAO.prepareStatement("select codigodavenda from venda where codigodavenda = (SELECT MAX(codigodavenda) FROM venda);");
+            ResultSet resultado = preStm.executeQuery();
+            while (resultado.next()) {
 
                 codigo = resultado.getInt("codigodavenda");
                 return codigo;

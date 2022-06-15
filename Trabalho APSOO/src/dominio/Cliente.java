@@ -1,16 +1,14 @@
 package dominio;
 
 public class Cliente extends Pessoa {
-	private String dataDeCadastro;
+    private String dataDeCadastro;
 
 
+    public String getData() {
+        return dataDeCadastro;
+    }
 
-
-	  public String getData() {
-	    return dataDeCadastro;
-	  }
-
-	  public void setData(String data) {
-	    this.dataDeCadastro = data;
-	  }
-	}
+    public void setData(String data) {
+        this.dataDeCadastro = data;
+    }
+}

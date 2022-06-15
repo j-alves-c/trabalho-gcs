@@ -8,18 +8,20 @@ import dominio.Venda;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ItemDevolucaoDao implements InterfaceDAO<ItemDevolucao,Integer> {
-    private final Connection conexao;
-    private final SapatoDao sapato;
-    public ItemDevolucaoDao() throws Exception{
-        conexao=ConexaoBD.conectar();
-        sapato = new SapatoDao();
+public class ItemDevolucaoDao implements InterfaceDAO<ItemDevolucao, Integer> {
+    private final Connection CONEXAO;
+    private final SapatoDao SAPATO_DAO;
+
+    public ItemDevolucaoDao(Connection connection) throws Exception {
+        this.CONEXAO = connection;
+        SAPATO_DAO = new SapatoDao(CONEXAO);
     }
+
     @Override
     public void inserir(ItemDevolucao entidade) {
 
         try {
-            PreparedStatement preStm=conexao.prepareStatement("" +
+            PreparedStatement preStm = CONEXAO.prepareStatement("" +
                     "insert into itemdevolucao(codigodevolucao,codigovenda,codigobarras,valorunitario) values(?,?,?,?)");
             preStm.setInt(1, entidade.getDevolucao().getCodigoDaDevolucao());
             preStm.setInt(2, entidade.getDevolucao().getVenda().getCodigo());
@@ -27,16 +29,16 @@ public class ItemDevolucaoDao implements InterfaceDAO<ItemDevolucao,Integer> {
             preStm.setDouble(4, entidade.getValorUnitario());
 
 
-            int qtd=preStm.executeUpdate();
-            if(qtd>0){
+            int qtd = preStm.executeUpdate();
+            if (qtd > 0) {
                 System.out.println("Item adicionado a devolu\u00E7\u00E3o");
 
-                sapato.atualizarMais(sapato.buscarPorCodigo(entidade.getSapato().getCodigoDeBarras()));
-            }else{
+                SAPATO_DAO.atualizarMais(SAPATO_DAO.buscarPorCodigo(entidade.getSapato().getCodigoDeBarras()));
+            } else {
                 System.out.println("não foi possivel salvar no banco");
             }
 
-        } catch (Exception e ) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -46,14 +48,14 @@ public class ItemDevolucaoDao implements InterfaceDAO<ItemDevolucao,Integer> {
     @Override
     public void atualizar(ItemDevolucao entidade) {
         try {
-            PreparedStatement preStm=conexao.prepareStatement("" +
+            PreparedStatement preStm = CONEXAO.prepareStatement("" +
                     "update itemdevolucao set codigobarras = ? where codiigoitemdevolucao = ?");
             preStm.setInt(2, entidade.getCodigoItemDevolucao());
             preStm.setDouble(1, entidade.getSapato().getCodigoDeBarras());
-            int qtd=preStm.executeUpdate();
-            if(qtd>0){
+            int qtd = preStm.executeUpdate();
+            if (qtd > 0) {
                 System.out.println("Atualizado no banco");
-            }else{
+            } else {
                 System.out.println("Não foi possivel atualizar no banco");
             }
         } catch (SQLException e) {
@@ -65,15 +67,15 @@ public class ItemDevolucaoDao implements InterfaceDAO<ItemDevolucao,Integer> {
     @Override
     public void deletar(ItemDevolucao entidade) {
         try {
-            sapato.atualizar(sapato.buscarPorCodigo(entidade.getSapato().getCodigoDeBarras()));
-            PreparedStatement preStmt=conexao.prepareStatement("" +
+            SAPATO_DAO.atualizar(SAPATO_DAO.buscarPorCodigo(entidade.getSapato().getCodigoDeBarras()));
+            PreparedStatement preStmt = CONEXAO.prepareStatement("" +
                     "delete from itemdevolucao where codigoitemdevolucao=?");
 
             preStmt.setInt(1, entidade.getCodigoItemDevolucao());
-            int qtd=preStmt.executeUpdate();
-            if(qtd>0 ){
+            int qtd = preStmt.executeUpdate();
+            if (qtd > 0) {
                 System.out.println("Deletado do banco");
-            }else{
+            } else {
                 System.out.println("Não foi possivel deletar no banco");
             }
         } catch (SQLException e) {
@@ -81,14 +83,15 @@ public class ItemDevolucaoDao implements InterfaceDAO<ItemDevolucao,Integer> {
             e.printStackTrace();
         }
     }
-    public ItemDevolucao checaChave(Integer venda,double codigo){
+
+    public ItemDevolucao checaChave(Integer venda, double codigo) {
         PreparedStatement preStm;
         try {
-            preStm = conexao.prepareStatement("select * from itemdevolucao where codigovenda=? AND codigobarras =? ");
+            preStm = CONEXAO.prepareStatement("select * from itemdevolucao where codigovenda=? AND codigobarras =? ");
             preStm.setInt(1, venda);
             preStm.setDouble(2, codigo);
             ResultSet resultado = preStm.executeQuery();
-            while(resultado.next()){
+            while (resultado.next()) {
 
                 ItemDevolucao item = new ItemDevolucao();
                 item.setCodigoItemDevolucao(resultado.getInt("codigoitemdevolucao"));
@@ -110,14 +113,15 @@ public class ItemDevolucaoDao implements InterfaceDAO<ItemDevolucao,Integer> {
         return null;
 
     }
+
     @Override
     public ItemDevolucao buscarPorCodigo(Integer chave) {
         PreparedStatement preStm;
         try {
-            preStm = conexao.prepareStatement("select * from itemdevolucao where codigoitemdevolucao=? ");
+            preStm = CONEXAO.prepareStatement("select * from itemdevolucao where codigoitemdevolucao=? ");
             preStm.setInt(1, chave);
             ResultSet resultado = preStm.executeQuery();
-            while(resultado.next()){
+            while (resultado.next()) {
 
                 ItemDevolucao item = new ItemDevolucao();
                 item.setCodigoItemDevolucao(resultado.getInt("codigoitemdevolucao"));
@@ -142,11 +146,11 @@ public class ItemDevolucaoDao implements InterfaceDAO<ItemDevolucao,Integer> {
     @Override
     public ArrayList<ItemDevolucao> listaTodos() {
         PreparedStatement preStm;
-        ArrayList<ItemDevolucao> lista= new ArrayList<>();
+        ArrayList<ItemDevolucao> lista = new ArrayList<>();
         try {
-            preStm = conexao.prepareStatement("select distinct itemdevolucao.codigoitemdevolucao,itemdevolucao.codigovenda,itemdevolucao.codigobarras, itemdevolucao.valorunitario from itemdevolucao  INNER JOIN devolucao on itemdevolucao.codigodevolucao =(SELECT MAX(codigodevolucao) FROM devolucao)");
-            ResultSet resultado=preStm.executeQuery();
-            while(resultado.next()){
+            preStm = CONEXAO.prepareStatement("select distinct itemdevolucao.codigoitemdevolucao,itemdevolucao.codigovenda,itemdevolucao.codigobarras, itemdevolucao.valorunitario from itemdevolucao  INNER JOIN devolucao on itemdevolucao.codigodevolucao =(SELECT MAX(codigodevolucao) FROM devolucao)");
+            ResultSet resultado = preStm.executeQuery();
+            while (resultado.next()) {
                 ItemDevolucao item = new ItemDevolucao();
                 item.setCodigoItemDevolucao(resultado.getInt("codigoitemdevolucao"));
                 Sapato sapato = new Sapato();
@@ -167,5 +171,5 @@ public class ItemDevolucaoDao implements InterfaceDAO<ItemDevolucao,Integer> {
         return lista;
 
     }
-    }
+}
 

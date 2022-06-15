@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Menu {
-	public JMenuItem SubMenu1;
-	public JMenuItem mntmNewMenuItem;
+	public JMenuItem novaVenda;
+	public JMenuItem novaDevolucao;
 	public JFrame frame;
 
 	/**
@@ -44,20 +44,20 @@ public class Menu {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
-		JMenuBar menuBar_1 = new JMenuBar();
-		frame.setJMenuBar(menuBar_1);
+		JMenuBar barraDeMenu = new JMenuBar();
+		frame.setJMenuBar(barraDeMenu);
 		//menu para a venda
-		JMenu Menu = new JMenu("VENDA");
-		menuBar_1.add(Menu);
-		Menu.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		JMenu menuVenda = new JMenu("VENDA");
+		barraDeMenu.add(menuVenda);
+		menuVenda.setHorizontalAlignment(SwingConstants.CENTER);
+		menuVenda.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		
-		 SubMenu1 = new JMenuItem("Nova Venda");
-		Menu.add(SubMenu1);
-		SubMenu1.addActionListener(e -> EventQueue.invokeLater(() -> {
+		novaVenda = new JMenuItem("Nova Venda");
+		menuVenda.add(novaVenda);
+		novaVenda.addActionListener(e -> EventQueue.invokeLater(() -> {
 			try {
-				EfetuarVenda window = new EfetuarVenda();
-				window.getFrame().setVisible(true);
+				EfetuarVenda efetuarVenda = new EfetuarVenda();
+				efetuarVenda.getFrame().setVisible(true);
 
 
 			} catch (Exception f) {
@@ -67,14 +67,14 @@ public class Menu {
 		}));
 
 		//menu para a devolução
-		JMenu mnNewMenu = new JMenu("DEVOLU\u00c7\u00c3O");
-		mnNewMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		mnNewMenu.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-		menuBar_1.add(mnNewMenu);
+		JMenu menuDevolucao = new JMenu("DEVOLU\u00c7\u00c3O");
+		menuDevolucao.setHorizontalAlignment(SwingConstants.CENTER);
+		menuDevolucao.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		barraDeMenu.add(menuDevolucao);
 		
-		mntmNewMenuItem = new JMenuItem("Nova Devolu\u00e7\u00e3o");
-		mnNewMenu.add(mntmNewMenuItem);
-		mntmNewMenuItem.addActionListener(f -> EventQueue.invokeLater(() -> {
+		novaDevolucao = new JMenuItem("Nova Devolu\u00e7\u00e3o");
+		menuDevolucao.add(novaDevolucao);
+		novaDevolucao.addActionListener(f -> EventQueue.invokeLater(() -> {
 			try {
 				EfetuarDevolucao window = new EfetuarDevolucao();
 				window.getFrame().setVisible(true);
@@ -84,14 +84,14 @@ public class Menu {
 
 		}));
 		//menu para a troca
-		JMenu mnNewMenu_1 = new JMenu("TROCA");
-		mnNewMenu_1.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-		mnNewMenu_1.setHorizontalAlignment(SwingConstants.CENTER);
-		menuBar_1.add(mnNewMenu_1);
+		JMenu menuTroca = new JMenu("TROCA");
+		menuTroca.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		menuTroca.setHorizontalAlignment(SwingConstants.CENTER);
+		barraDeMenu.add(menuTroca);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Nova Troca");
-		mnNewMenu_1.add(mntmNewMenuItem_1);
-		mntmNewMenuItem_1.addActionListener(e -> EventQueue.invokeLater(() -> {
+		JMenuItem novaTroca = new JMenuItem("Nova Troca");
+		menuTroca.add(novaTroca);
+		novaTroca.addActionListener(e -> EventQueue.invokeLater(() -> {
 			try {
 				JOptionPane.showMessageDialog(null,"Funcionalidade ainda n\u00e3o implementada!");
 
