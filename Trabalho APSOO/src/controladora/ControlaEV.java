@@ -300,9 +300,8 @@ public class ControlaEV implements ActionListener, FocusListener {
         limpaCampo();
         JOptionPane.showMessageDialog(null, "Fechando o Sistema!");
         ConexaoBD.closeconexao();
-        System.exit(0);
-
-
+        
+        EFETUAR_VENDA.getFrame().setVisible(false);
     }
 
     private void removerItem() {

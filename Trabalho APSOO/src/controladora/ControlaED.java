@@ -174,7 +174,7 @@ public class ControlaED implements ActionListener, FocusListener {
         JOptionPane.showMessageDialog(null, "Fechando o Sistema!");
         ConexaoBD.closeconexao();
 
-        System.exit(0);
+        EFETUAR_DEVOLUCAO.getFrame().setVisible(false);
 
     }
 
