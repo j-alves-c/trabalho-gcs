@@ -31,6 +31,7 @@ public class EfetuarVenda  {
 	private JButton confirmar;
 	private JButton cancelar;
 	private JButton adicionarItem;
+	private JButton mudarTema;
 	private JTextField campoTotal;
 	private JTextField campoNomeVendedor;
 	private JTextField campoNomeCliente;
@@ -58,7 +59,7 @@ public class EfetuarVenda  {
 
 // criaï¿½ï¿½o das legendas para os campos de preenchimento
 		JLabel legendaTela = new JLabel("Venda Sapatos");
-		legendaTela.setForeground(Color.MAGENTA);
+		legendaTela.setForeground(new Color(51,153,255));
 		legendaTela.setFont(new Font("Tahoma", Font.PLAIN, 32));
 
 		legendaTela.setBounds(10, 11, 211, 40);
@@ -87,7 +88,6 @@ public class EfetuarVenda  {
 		legendaCpfCliente.setHorizontalAlignment(SwingConstants.CENTER);
 		legendaCpfCliente.setBounds(20, 97, 110, 30);
 		frame.getContentPane().add(legendaCpfCliente);
-
 		
 		JLabel legendaNomeVendedor = new JLabel("Nome Vendedor");
 		legendaNomeVendedor.setHorizontalAlignment(SwingConstants.CENTER);
@@ -182,14 +182,12 @@ public class EfetuarVenda  {
 
 		frame.getContentPane().add(campoParcelas);
 		campoParcelas.setText("1");
-		
-
 
 //painel de cadastro de sapatos
 		painel = new JPanel();
 		painel.setBackground(SystemColor.activeCaption);
 		painel.setForeground(SystemColor.activeCaption);
-		painel.setBounds(0, 238, 880, 247);
+		painel.setBounds(0, 238, 930, 247);
 
 		painel.setLayout(null);
 		frame.getContentPane().add(painel);
@@ -250,7 +248,7 @@ public class EfetuarVenda  {
 		remover = new JButton("X");
 		remover.setHorizontalAlignment(SwingConstants.LEFT);
 		remover.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		remover.setForeground(Color.MAGENTA);
+		remover.setForeground(new Color(51,153,255));
 		remover.setBounds(820, 10, 40, 30);
 		remover.addActionListener(contEV);
 		painel.add(remover);
@@ -308,20 +306,20 @@ public class EfetuarVenda  {
 		JLabel legendaTotal = new JLabel("Total");
 		legendaTotal.setHorizontalAlignment(SwingConstants.CENTER);
 		legendaTotal.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		legendaTotal.setBounds(10, 490, 34, 30);
+		legendaTotal.setBounds(100, 495, 34, 30);
 		frame.getContentPane().add(legendaTotal);
 
 //botï¿½o de confirmar
 		confirmar = new JButton("CONFIRMAR");
 		confirmar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		confirmar.setBounds(700, 490, 122, 30);
+		confirmar.setBounds(700, 495, 122, 30);
 		confirmar.addActionListener(contEV);
 		frame.getContentPane().add(confirmar);
 
 // termina a execuï¿½ï¿½o.
 		cancelar = new JButton("CANCELAR");
 		cancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		cancelar.setBounds(570, 490, 122, 30);
+		cancelar.setBounds(570, 495, 122, 30);
 		cancelar.addActionListener(contEV);
 		frame.getContentPane().add(cancelar);
 		
@@ -330,15 +328,24 @@ public class EfetuarVenda  {
 		campoTotal.setHorizontalAlignment(SwingConstants.LEFT);
 		campoTotal.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		campoTotal.setColumns(10);
-		campoTotal.setBounds(50, 490, 80, 30);
+		campoTotal.setBounds(140, 495, 80, 30);
 		frame.getContentPane().add(campoTotal);
 		campoTotal.setText(String.format("%.2f", 0.00));
 
 // aumenta os campos de adicionar itens de venda
 		adicionarItem = new JButton("Adicionar");
-		adicionarItem.setBounds(356, 490, 140, 30);
+		adicionarItem.setBounds(356, 495, 140, 30);
 		frame.getContentPane().add(adicionarItem);
 		adicionarItem.addActionListener(contEV);
+		
+// botão de mudar o tema
+		mudarTema = new JButton("Modo");
+		mudarTema.setHorizontalAlignment(SwingConstants.LEFT);
+		mudarTema.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		mudarTema.addActionListener(contEV);
+		mudarTema.setBounds(10, 495, 65, 30);
+		frame.getContentPane().add(mudarTema);
+		
 
 	} // FIM DO INICIALIZE
 
@@ -426,13 +433,15 @@ public class EfetuarVenda  {
 		return campoValorUni;
 	}
 
-
-
 	public JTextField getCampoNomeCliente() {
 		return campoNomeCliente;
 	}
 
 	public JTextField getCampoNomeVendedor() {
 		return campoNomeVendedor;
+	}
+	
+	public JButton getMudarTema() {
+		return mudarTema;
 	}
 }

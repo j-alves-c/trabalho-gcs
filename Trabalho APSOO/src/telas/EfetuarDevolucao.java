@@ -20,6 +20,7 @@ public class EfetuarDevolucao {
 	private JTextField campoValor;
 	private JButton cancelar;
 	private JButton confirmar;
+	private JButton mudarTema;
 
 
 
@@ -42,7 +43,7 @@ public class EfetuarDevolucao {
 
 		JLabel legendaDevolSapatos = new JLabel();
 		legendaDevolSapatos.setText("Devolu\u00E7\u00E3o Sapatos");
-		legendaDevolSapatos.setForeground(Color.MAGENTA);
+		legendaDevolSapatos.setForeground(new Color(51,153,255));
 		legendaDevolSapatos.setBackground(SystemColor.control);
 		legendaDevolSapatos.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		legendaDevolSapatos.setBounds(10, 11, 276, 45);
@@ -78,9 +79,6 @@ public class EfetuarDevolucao {
 		legendaData.setBackground(SystemColor.control);
 		legendaData.setBounds(636, 15, 122, 30);
 		frame.getContentPane().add(legendaData);
-		
-
-
 
 		JLabel legendaCpfVendedor = new JLabel();
 		legendaCpfVendedor.setText("CPF Vendedor:");
@@ -222,15 +220,23 @@ public class EfetuarDevolucao {
 
 		JLabel legendaValorDevol = new JLabel("Valor a devolver R$:");
 		legendaValorDevol.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		legendaValorDevol.setBounds(10, 495, 139, 30);
+		legendaValorDevol.setBounds(100, 495, 139, 30);
 		frame.getContentPane().add(legendaValorDevol);
 		
 		campoValor = new JTextField();
 		campoValor.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		campoValor.setText("0,00");
-		campoValor.setBounds(159, 495, 80, 30);
+		campoValor.setBounds(250, 495, 80, 30);
 		frame.getContentPane().add(campoValor);
 		campoValor.setColumns(10);
+		
+// botão de mudar o tema
+				mudarTema = new JButton("Modo");
+				mudarTema.setHorizontalAlignment(SwingConstants.LEFT);
+				mudarTema.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				mudarTema.setBounds(10, 495, 65, 30);
+				frame.getContentPane().add(mudarTema);
+				mudarTema.addActionListener(controlaED);
 
 	}
 
@@ -284,6 +290,10 @@ public class EfetuarDevolucao {
 
 	public JButton getConfirmar() {
 		return confirmar;
+	}
+	
+	public JButton getMudarTema() {
+		return mudarTema;
 	}
 
 }
