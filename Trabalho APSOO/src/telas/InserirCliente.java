@@ -1,15 +1,9 @@
 package telas;
 
-import java.awt.Button;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Panel;
-import java.awt.SystemColor;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JPanel;
+import controladora.ControlaIC;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class InserirCliente extends JFrame {
 	private JFrame frame;
@@ -20,7 +14,20 @@ public class InserirCliente extends JFrame {
 	private JTextField txtCidade;
 	private JTextField txtTelefone;
 	private JTextField textNumero;
+	private JTextField dataAtual;
+	private JTextField txtEmail;
 	private JTextField txtUF;
+
+	public JButton getButtonCancelar() {
+		return buttonCancelar;
+	}
+
+	public JButton getButtonConfirmar() {
+		return buttonConfirmar;
+	}
+
+	private  JButton buttonCancelar;
+	private  JButton buttonConfirmar;
 
 	public InserirCliente() {
 		initialize();
@@ -28,6 +35,7 @@ public class InserirCliente extends JFrame {
 
 	private void initialize() {
 		// Criacao do frame
+		ControlaIC contIC = new ControlaIC(this);
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.activeCaption);
 		frame.setBackground(SystemColor.activeCaption);
@@ -35,6 +43,17 @@ public class InserirCliente extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
+		dataAtual = new JTextField();
+		dataAtual.setColumns(10);
+		dataAtual.setBounds(742, 10, 140, 30);
+		contIC.atualizaData();
+		frame.getContentPane().add(dataAtual);
+
+		JLabel legendaData = new JLabel("Data");
+		legendaData.setHorizontalAlignment(SwingConstants.CENTER);
+		legendaData.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		legendaData.setBounds(686, 10, 46, 30);
+		frame.getContentPane().add(legendaData);
 		// Criacao de um painel content para desing
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 40, 914, 468);
@@ -80,6 +99,11 @@ public class InserirCliente extends JFrame {
 		lblTelefone.setBounds(10, 270, 90, 30);
 		panelLabels.add(lblTelefone);
 
+		JLabel lblEmail = new JLabel("Email*:");
+		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblEmail.setBounds(10, 320, 90, 30);
+		panelLabels.add(lblEmail);
+
 		JLabel lblUF = new JLabel("UF*:");
 		lblUF.setBounds(360, 220, 45, 30);
 		panel.add(lblUF);
@@ -94,10 +118,12 @@ public class InserirCliente extends JFrame {
 		// Criacao dos textFields
 		txtCPF = new JTextField();
 		txtCPF.setBounds(130, 20, 200, 30);
+		txtCPF.addFocusListener(contIC);
 		panel.add(txtCPF);
 		txtCPF.setForeground(SystemColor.controlDkShadow);
 		txtCPF.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtCPF.setColumns(10);
+		txtCPF.addFocusListener(contIC);
 
 		txtNome = new JTextField();
 		txtNome.setBounds(130, 70, 250, 30);
@@ -106,6 +132,7 @@ public class InserirCliente extends JFrame {
 		txtNome.setToolTipText("");
 		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtNome.setColumns(10);
+		txtNome.addFocusListener(contIC);
 
 		txtRua = new JTextField();
 		txtRua.setBounds(130, 120, 250, 30);
@@ -113,6 +140,7 @@ public class InserirCliente extends JFrame {
 		txtRua.setForeground(SystemColor.controlDkShadow);
 		txtRua.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtRua.setColumns(10);
+		txtRua.addFocusListener(contIC);
 
 		textBairro = new JTextField();
 		textBairro.setBounds(130, 170, 200, 30);
@@ -120,6 +148,7 @@ public class InserirCliente extends JFrame {
 		textBairro.setForeground(SystemColor.controlDkShadow);
 		textBairro.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		textBairro.setColumns(10);
+		textBairro.addFocusListener(contIC);
 
 		txtCidade = new JTextField();
 		txtCidade.setBounds(130, 220, 200, 30);
@@ -127,6 +156,7 @@ public class InserirCliente extends JFrame {
 		txtCidade.setForeground(SystemColor.controlDkShadow);
 		txtCidade.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtCidade.setColumns(10);
+		txtCidade.addFocusListener(contIC);
 
 		txtTelefone = new JTextField();
 		txtTelefone.setBounds(130, 270, 200, 30);
@@ -134,6 +164,15 @@ public class InserirCliente extends JFrame {
 		txtTelefone.setForeground(SystemColor.controlDkShadow);
 		txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTelefone.setColumns(10);
+		txtTelefone.addFocusListener(contIC);
+
+		txtEmail = new JTextField();
+		txtEmail.setBounds(130, 320, 250, 30);
+		panel.add(txtEmail);
+		txtEmail.setForeground(SystemColor.controlDkShadow);
+		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtEmail.setColumns(10);
+		txtEmail.addFocusListener(contIC);
 
 		textNumero = new JTextField();
 		textNumero.setBounds(505, 120, 50, 30);
@@ -142,6 +181,7 @@ public class InserirCliente extends JFrame {
 		textNumero.setForeground(SystemColor.controlDkShadow);
 		textNumero.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		textNumero.setColumns(10);
+		textNumero.addFocusListener(contIC);
 
 		txtUF = new JTextField();
 		txtUF.setBounds(410, 220, 50, 30);
@@ -150,17 +190,20 @@ public class InserirCliente extends JFrame {
 		txtUF.setForeground(SystemColor.controlDkShadow);
 		txtUF.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtUF.setColumns(10);
+		txtUF.addFocusListener(contIC);
 
 		// Criacao dos botões de cancelar e confirmar
-		Button buttonCancelar = new Button("CANCELAR");
+		buttonCancelar = new JButton("CANCELAR");
 		buttonCancelar.setFont(new Font("Dialog", Font.PLAIN, 15));
-		buttonCancelar.setBounds(130, 365, 100, 50);
+		buttonCancelar.setBounds(130, 390, 150, 50);
+		buttonCancelar.addActionListener(contIC);
 		panel.add(buttonCancelar);
 		buttonCancelar.setBackground(SystemColor.activeCaption);
 
-		Button buttonConfirmar = new Button("CONFIRMAR");
+		buttonConfirmar = new JButton("CONFIRMAR");
 		buttonConfirmar.setFont(new Font("Dialog", Font.PLAIN, 15));
-		buttonConfirmar.setBounds(244, 365, 100, 50);
+		buttonConfirmar.setBounds(300, 390, 150, 50);
+		buttonConfirmar.addActionListener(contIC);
 		panel.add(buttonConfirmar);
 		buttonConfirmar.setBackground(SystemColor.activeCaption);
 	}
@@ -168,4 +211,44 @@ public class InserirCliente extends JFrame {
 	public JFrame getFrame() {
 		return frame;
 	}
+	public JTextField getTxtCPF() {
+		return txtCPF;
+	}
+
+	public JTextField getTxtNome() {
+		return txtNome;
+	}
+
+	public JTextField getTxtRua() {
+		return txtRua;
+	}
+
+	public JTextField getTextBairro() {
+		return textBairro;
+	}
+
+	public JTextField getTxtCidade() {
+		return txtCidade;
+	}
+
+	public JTextField getTxtTelefone() {
+		return txtTelefone;
+	}
+
+	public JTextField getTextNumero() {
+		return textNumero;
+	}
+
+	public JTextField getTxtUF() {
+		return txtUF;
+	}
+
+	public JTextField getDataAtual() {
+		return dataAtual;
+	}
+	public JTextField getTxtEmail() {
+		return txtEmail;
+	}
+
+
 }

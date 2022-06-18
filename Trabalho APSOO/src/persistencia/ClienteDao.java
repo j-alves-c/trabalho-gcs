@@ -34,8 +34,12 @@ public class ClienteDao implements InterfaceDAO<Cliente, String> {
             PreparedStatement preStm1 = CONEXAO.prepareStatement("" +
                     "insert into cliente(datadecadastro,cpf) values(?,?)");
             preStm1.setString(2, entidade.getCPF());
+            DateFormat datanormal = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataFormatoHumano = new Date(datanormal.parse(entidade.getData()).getTime());
+
             DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            preStm1.setDate(1, new Date(simpleDateFormat.parse(entidade.getData()).getTime()));
+            String dataBanco = simpleDateFormat.format(dataFormatoHumano);
+            preStm1.setDate(1, new Date(simpleDateFormat.parse(dataBanco).getTime()));
             int qtd1 = preStm1.executeUpdate();
 
             if (qtd > 0 && qtd1 > 0) {
