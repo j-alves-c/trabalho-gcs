@@ -345,7 +345,6 @@ public class EfetuarVenda  {
 		mudarTema.addActionListener(contEV);
 		mudarTema.setBounds(10, 495, 65, 30);
 		frame.getContentPane().add(mudarTema);
-		
 
 	} // FIM DO INICIALIZE
 
