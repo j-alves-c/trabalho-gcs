@@ -109,10 +109,15 @@ public class ControlaEV implements ActionListener, FocusListener {
     }
 
     private void adicionaField() {
-        // adiciona os textfield extras + botões de remoção.
+    	// adiciona os textfield extras + botões de remoção.
         posicao += 50;
-
+        
+        
         JTextField novoCampoM = new JTextField();
+        if (EFETUAR_VENDA.getPainel().getBackground().equals(new Color(2,69,122))) {
+        	novoCampoM.setBackground(Color.lightGray);
+        	novoCampoM.setForeground(Color.black);
+        }
         novoCampoM.setSize(120, 30);
         novoCampoM.setLocation(142, posicao);
         novoCampoM.setText("");
@@ -123,7 +128,10 @@ public class ControlaEV implements ActionListener, FocusListener {
         novoCampoM.setColumns(10);
 
         JTextField novoCampoC = new JTextField();
-
+        if (EFETUAR_VENDA.getPainel().getBackground().equals(new Color(2,69,122))) {
+        	novoCampoC.setBackground(Color.lightGray);
+        	novoCampoC.setForeground(Color.black);
+        }
         novoCampoC.setSize(120, 30);
         novoCampoC.setLocation(272, posicao);
         novoCampoC.setText("");
@@ -137,7 +145,10 @@ public class ControlaEV implements ActionListener, FocusListener {
 
 
         JTextField novoCampoMD = new JTextField();
-
+        if (EFETUAR_VENDA.getPainel().getBackground().equals(new Color(2,69,122))) {
+        	novoCampoMD.setBackground(Color.lightGray);
+        	novoCampoMD.setForeground(Color.black);
+        }
         novoCampoMD.setSize(120, 30);
         novoCampoMD.setLocation(402, posicao);
         novoCampoMD.setText("");
@@ -148,7 +159,10 @@ public class ControlaEV implements ActionListener, FocusListener {
         novoCampoMD.setColumns(10);
 
         JTextField novoCampoT = new JTextField();
-
+        if (EFETUAR_VENDA.getPainel().getBackground().equals(new Color(2,69,122))) {
+        	novoCampoT.setBackground(Color.lightGray);
+        	novoCampoT.setForeground(Color.black);
+        }
         novoCampoT.setSize(120, 30);
         novoCampoT.setLocation(532, posicao);
         novoCampoT.setText("");
@@ -160,7 +174,10 @@ public class ControlaEV implements ActionListener, FocusListener {
 
 
         JTextField novoCampoTAM = new JTextField();
-
+        if (EFETUAR_VENDA.getPainel().getBackground().equals(new Color(2,69,122))) {
+        	novoCampoTAM.setBackground(Color.lightGray);
+        	novoCampoTAM.setForeground(Color.black);
+        }
         novoCampoTAM.setSize(50, 30);
         novoCampoTAM.setLocation(662, posicao);
         novoCampoTAM.setText("");
@@ -170,7 +187,10 @@ public class ControlaEV implements ActionListener, FocusListener {
         novoCampoTAM.setColumns(10);
 
         JTextField novoCampoValorUNIT = new JTextField();
-
+        if (EFETUAR_VENDA.getPainel().getBackground().equals(new Color(2,69,122))) {
+        	novoCampoValorUNIT.setBackground(Color.lightGray);
+        	novoCampoValorUNIT.setForeground(Color.black);
+        }
         novoCampoValorUNIT.setSize(90, 30);
         novoCampoValorUNIT.setLocation(722, posicao);
         novoCampoValorUNIT.setText("");
@@ -181,7 +201,10 @@ public class ControlaEV implements ActionListener, FocusListener {
 
 
         JTextField novoCampoCS = new JTextField();
-
+        if (EFETUAR_VENDA.getPainel().getBackground().equals(new Color(2,69,122))) {
+        	novoCampoCS.setBackground(Color.lightGray);
+        	novoCampoCS.setForeground(Color.black);
+        }
         novoCampoCS.setSize(120, 30);
         novoCampoCS.setLocation(12, posicao);
         novoCampoCS.setText("");
@@ -206,10 +229,12 @@ public class ControlaEV implements ActionListener, FocusListener {
         EFETUAR_VENDA.getPainel().add(novoCampoCS);
         novoCampoCS.setVisible(true);
 
-
         JButton novoRemover = new JButton("X");
+        if (EFETUAR_VENDA.getPainel().getBackground().equals(new Color(2,69,122))) {
+        	novoRemover.setBackground(new Color(231,231,231));
+        }
         novoRemover.setLocation(820, posicao);
-        novoRemover.setForeground(Color.MAGENTA);
+        novoRemover.setForeground(new Color(51,153,255));
         novoRemover.setSize(40, 30);
         novoRemover.setHorizontalAlignment(SwingConstants.LEFT);
         novoRemover.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -239,8 +264,6 @@ public class ControlaEV implements ActionListener, FocusListener {
         EFETUAR_VENDA.getAdicionarItem().setFont(new Font("Tahoma", Font.PLAIN, 15));
         //aparecer todos a cada adição.
         EFETUAR_VENDA.getPainel().repaint();
-
-
     }
 
     private void confirma() {
@@ -334,7 +357,6 @@ public class ControlaEV implements ActionListener, FocusListener {
 
     }
 
-
     @Override
     public void actionPerformed(ActionEvent EventoBotao) {
         if (EventoBotao.getSource().equals(EFETUAR_VENDA.getCancelar())) {
@@ -349,10 +371,86 @@ public class ControlaEV implements ActionListener, FocusListener {
 
         } else if (EventoBotao.getSource().equals(EFETUAR_VENDA.getAdicionarItem())) {
             adicionaField();
+            
+        } else if (EventoBotao.getSource().equals(EFETUAR_VENDA.getMudarTema())){
+            mudarTema();
         }
 
     }
 
+    private void mudarTema() {
+		// TODO Auto-generated method stub
+    	if (!EFETUAR_VENDA.getFrame().getContentPane().getBackground().equals(new Color(27,27,27))) {
+            EFETUAR_VENDA.getFrame().getContentPane().setBackground(new Color(27,27,27));
+            for (int i = 0; i< EFETUAR_VENDA.getFrame().getContentPane().getComponentCount(); i++){
+            	// botão
+                if (EFETUAR_VENDA.getFrame().getContentPane().getComponent(i) instanceof JButton){
+                    EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setBackground(new Color(55,0,179));
+                    EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setForeground(Color.white);
+                // insere valores
+                }else if (EFETUAR_VENDA.getFrame().getContentPane().getComponent(i) instanceof JTextField){
+                	EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setForeground(Color.black);
+                    EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setBackground(Color.lightGray);
+                //cor oficial
+                }else if (EFETUAR_VENDA.getFrame().getContentPane().getComponent(i) instanceof JLabel && i==0){
+                    EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setForeground(new Color(51,153,255));
+                //letras
+                }else if (EFETUAR_VENDA.getFrame().getContentPane().getComponent(i) instanceof JLabel && i!=0){
+                    EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setForeground(Color.lightGray);
+                }
+                //forma de pagamento
+                else if (EFETUAR_VENDA.getFrame().getContentPane().getComponent(i) instanceof JComboBox){
+                    EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setBackground(Color.lightGray);
+                    EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setForeground(Color.black);
+                }
+
+            }
+            // adicionar itens
+            EFETUAR_VENDA.getPainel().setBackground(new Color(2,69,122));
+            for (int j=0;j< EFETUAR_VENDA.getPainel().getComponentCount();j++){
+            	// botão de inserir produto
+                if (EFETUAR_VENDA.getPainel().getComponent(j) instanceof JButton){
+                    EFETUAR_VENDA.getPainel().getComponent(j).setBackground(new Color(231,231,231));
+                // onde insere valores do produto
+                }else if (EFETUAR_VENDA.getPainel().getComponent(j) instanceof JTextField){
+                    EFETUAR_VENDA.getPainel().getComponent(j).setBackground(Color.lightGray);
+                }
+
+
+            }
+            EFETUAR_VENDA.getPainel().repaint();
+
+        }else {
+        	EFETUAR_VENDA.getFrame().getContentPane().setBackground( new JFrame().getContentPane().getBackground() );
+            for (int i = 0; i< EFETUAR_VENDA.getFrame().getContentPane().getComponentCount(); i++){
+                if (EFETUAR_VENDA.getFrame().getContentPane().getComponent(i) instanceof JButton){
+                    EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setBackground(new JButton().getBackground());
+                    EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setForeground(new JButton().getForeground());
+                }else if (EFETUAR_VENDA.getFrame().getContentPane().getComponent(i) instanceof JTextField){
+                    EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setBackground(new JTextField().getBackground());
+                }else if (EFETUAR_VENDA.getFrame().getContentPane().getComponent(i) instanceof JLabel && i !=0){
+                    EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setForeground(
+                            new JLabel().getForeground());
+                }else if (EFETUAR_VENDA.getFrame().getContentPane().getComponent(i) instanceof JComboBox){
+                    EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setBackground(new JComboBox().getBackground());
+                    EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setForeground(new JComboBox().getForeground());
+                }
+
+            }
+            EFETUAR_VENDA.getPainel().setBackground(SystemColor.activeCaption);
+            for (int j=0;j< EFETUAR_VENDA.getPainel().getComponentCount();j++){
+                if (EFETUAR_VENDA.getPainel().getComponent(j) instanceof JButton){
+                    EFETUAR_VENDA.getPainel().getComponent(j).setBackground(new JButton().getBackground());
+                }else if (EFETUAR_VENDA.getPainel().getComponent(j) instanceof JTextField){
+                    EFETUAR_VENDA.getPainel().getComponent(j).setBackground(new JTextField().getBackground());
+                }
+
+
+            }
+            EFETUAR_VENDA.getPainel().repaint();
+        }     
+	}
+    
     private void validaCpfVendedor() {
         if (EFETUAR_VENDA.getCampoCpfVendedor().getText() == null || EFETUAR_VENDA.getCampoCpfVendedor().getText().equals("") || EFETUAR_VENDA.getCampoCpfVendedor().getText().equals(" ")) {
             JOptionPane.showMessageDialog(new JFrame(), " Vendedor n\u00e3o preenchido!");
@@ -752,7 +850,6 @@ public class ControlaEV implements ActionListener, FocusListener {
 
         return true;
     }
-
 
     private void limpaCampo() {
         EFETUAR_VENDA.getCampoCpfCliente().setText("");
