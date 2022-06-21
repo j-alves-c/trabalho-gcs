@@ -1,5 +1,7 @@
 package telas;
 
+import controladora.ControlaEC;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,6 +9,43 @@ public class EditarCliente extends JFrame {
 
 	private JFrame frame;
 	private JTextField txtCPF;
+
+	public JTextField getTxtCPF() {
+		return txtCPF;
+	}
+
+	public JTextField getTxtNome() {
+		return txtNome;
+	}
+
+	public JTextField getTxtEndereco() {
+		return txtEndereco;
+	}
+
+	public JTextField getTxtEmail() {
+		return txtEmail;
+	}
+
+	public JTextField getTxtCidade() {
+		return txtCidade;
+	}
+
+	public JTextField getTxtTelefone() {
+		return txtTelefone;
+	}
+
+	public JTextField getDataAtual() {
+		return dataAtual;
+	}
+
+	public JTextField getTxtMs() {
+		return txtMs;
+	}
+
+	public JButton getButtonSalvar() {
+		return buttonSalvar;
+	}
+
 	private JTextField txtNome;
 	private JTextField txtEndereco;
 	private JTextField txtEmail;
@@ -14,13 +53,20 @@ public class EditarCliente extends JFrame {
 	private JTextField txtTelefone;
 	private JTextField dataAtual;
 	private JTextField txtMs;
-	private Button buttonSalvar;
+	private JButton buttonSalvar;
+
+	public JButton getButtonCancelar() {
+		return buttonCancelar;
+	}
+
+	private JButton buttonCancelar;
 
 	public EditarCliente() {
 		initialize();
 	}
 
 	private void initialize() {
+		ControlaEC controlaEC = new ControlaEC(this);
 		// Criacao do frame
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.activeCaption);
@@ -31,6 +77,7 @@ public class EditarCliente extends JFrame {
 		dataAtual = new JTextField();
 		dataAtual.setColumns(10);
 		dataAtual.setBounds(742, 10, 140, 30);
+		controlaEC.atualizaData();
 		frame.getContentPane().add(dataAtual);
 
 		JLabel legendaData = new JLabel("Data");
@@ -96,6 +143,7 @@ public class EditarCliente extends JFrame {
 		panel.add(txtCPF);
 		txtCPF.setForeground(SystemColor.controlDkShadow);
 		txtCPF.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtCPF.addFocusListener(controlaEC);
 		txtCPF.setColumns(10);
 
 		txtNome = new JTextField();
@@ -104,6 +152,7 @@ public class EditarCliente extends JFrame {
 		txtNome.setForeground(SystemColor.controlDkShadow);
 		txtNome.setToolTipText("");
 		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtNome.addFocusListener(controlaEC);
 		txtNome.setColumns(10);
 
 		txtEndereco = new JTextField();
@@ -111,6 +160,7 @@ public class EditarCliente extends JFrame {
 		panel.add(txtEndereco);
 		txtEndereco.setForeground(SystemColor.controlDkShadow);
 		txtEndereco.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtEndereco.addFocusListener(controlaEC);
 		txtEndereco.setColumns(10);
 
 		txtEmail = new JTextField();
@@ -118,6 +168,7 @@ public class EditarCliente extends JFrame {
 		panel.add(txtEmail);
 		txtEmail.setForeground(SystemColor.controlDkShadow);
 		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtEmail.addFocusListener(controlaEC);
 		txtEmail.setColumns(10);
 
 		txtCidade = new JTextField();
@@ -125,6 +176,7 @@ public class EditarCliente extends JFrame {
 		panel.add(txtCidade);
 		txtCidade.setForeground(SystemColor.controlDkShadow);
 		txtCidade.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtCidade.addFocusListener(controlaEC);
 		txtCidade.setColumns(10);
 
 		txtTelefone = new JTextField();
@@ -132,6 +184,7 @@ public class EditarCliente extends JFrame {
 		panel.add(txtTelefone);
 		txtTelefone.setForeground(SystemColor.controlDkShadow);
 		txtTelefone.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtTelefone.addFocusListener(controlaEC);
 		txtTelefone.setColumns(10);
 
 
@@ -141,20 +194,23 @@ public class EditarCliente extends JFrame {
 		panel.add(txtMs);
 		txtMs.setHorizontalAlignment(SwingConstants.CENTER);
 		txtMs.setForeground(SystemColor.controlDkShadow);
+		txtMs.addFocusListener(controlaEC);
 		txtMs.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtMs.setColumns(10);
 
 		// Criacao dos botões de cancelar e confirmar
-		Button buttonCancelar = new Button("CANCELAR");
+		buttonCancelar = new JButton("CANCELAR");
 		buttonCancelar.setFont(new Font("Dialog", Font.PLAIN, 15));
-		buttonCancelar.setBounds(130, 365, 100, 50);
+		buttonCancelar.setBounds(110, 365, 150, 50);
 		panel.add(buttonCancelar);
+		buttonCancelar.addActionListener(controlaEC);
 		buttonCancelar.setBackground(SystemColor.activeCaption);
 
-		buttonSalvar = new Button("SALVAR");
+		buttonSalvar = new JButton("SALVAR");
 		buttonSalvar.setFont(new Font("Dialog", Font.PLAIN, 15));
-		buttonSalvar.setBounds(244, 365, 100, 50);
+		buttonSalvar.setBounds(280, 365, 100, 50);
 		panel.add(buttonSalvar);
+		buttonSalvar.addActionListener(controlaEC);
 		buttonSalvar.setBackground(SystemColor.activeCaption);
 	}
 
