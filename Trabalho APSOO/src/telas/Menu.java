@@ -8,6 +8,7 @@ public class Menu {
 	public JMenuItem novaDevolucao;
 	public JMenuItem novaTroca;
 	public JMenuItem novoCliente;
+	public JMenuItem editarCliente;
 	public JFrame frame;
 
 	/**
@@ -72,8 +73,8 @@ public class Menu {
 		menuDevolucao.add(novaDevolucao);
 		novaDevolucao.addActionListener(f -> EventQueue.invokeLater(() -> {
 			try {
-				EfetuarDevolucao window = new EfetuarDevolucao();
-				window.getFrame().setVisible(true);
+				EfetuarDevolucao efetuarDevolucao = new EfetuarDevolucao();
+				efetuarDevolucao.getFrame().setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -109,11 +110,34 @@ public class Menu {
 			try {
 				InserirCliente inserirCliente = new InserirCliente();
 				inserirCliente.getFrame().setVisible(true);
+
+				// JPANELInserirCliente inserirCliente = new JPANELInserirCliente();
+				// frame.add(inserirCliente);
+				
+				// Tornar o frame Menu invisível
+				// frame.setVisible(false);
 			} catch (Exception g) {
 				g.printStackTrace();
 			}
 
 		}));
+		
+		editarCliente = new JMenuItem("Editar Cliente");
+		menuCliente.add(editarCliente);
+		editarCliente.addActionListener(e -> EventQueue.invokeLater(() -> {
+			try {
+				EditarCliente editarCliente = new EditarCliente();
+				editarCliente.getFrame().setVisible(true);
+				
+				// JPANELInserirCliente inserirCliente = new JPANELInserirCliente();
+				// frame.add(inserirCliente);
+				
+				// Tornar o frame Menu invisível
+				// frame.setVisible(false);
+			} catch (Exception g) {
+				g.printStackTrace();
+			}
 
+		}));
 	}
 }
