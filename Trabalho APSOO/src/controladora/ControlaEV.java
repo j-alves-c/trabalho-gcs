@@ -250,6 +250,19 @@ public class ControlaEV implements ActionListener, FocusListener {
 				novoCampoMD.setText("");
 				novoCampoTAM.setText("");
 				novoCampoCS.setText("");
+				if(EFETUAR_VENDA.getPainel().getComponentAt(820, novoRemover.getY() +50) instanceof JButton == false){
+
+					EFETUAR_VENDA.getPainel().remove(novoCampoC);
+					EFETUAR_VENDA.getPainel().remove(novoCampoM);
+					EFETUAR_VENDA.getPainel().remove(novoCampoT);
+					EFETUAR_VENDA.getPainel().remove(novoCampoValorUNIT);
+					EFETUAR_VENDA.getPainel().remove(novoCampoMD);
+					EFETUAR_VENDA.getPainel().remove(novoCampoTAM);
+					EFETUAR_VENDA.getPainel().remove(novoCampoCS);
+					EFETUAR_VENDA.getPainel().remove(novoRemover);
+					EFETUAR_VENDA.getPainel().repaint();
+					posicao -= 50;
+				}
 			}
 
 		});
