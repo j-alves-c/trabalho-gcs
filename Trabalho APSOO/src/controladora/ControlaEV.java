@@ -38,7 +38,7 @@ public class ControlaEV implements ActionListener, FocusListener {
         this.CONEXAO = ConexaoBD.conectar();
 
         this.EFETUAR_VENDA = EFETUAR_VENDA;
-        // inicialização das classes Dao necessárias
+        // inicializaï¿½ï¿½o das classes Dao necessï¿½rias
 
         try {
             persistSapato = new SapatoDao(CONEXAO);
@@ -81,12 +81,12 @@ public class ControlaEV implements ActionListener, FocusListener {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        // fim da inicialização das classes Dao necessárias
+        // fim da inicializaï¿½ï¿½o das classes Dao necessï¿½rias
 
     }
 
     public void iniciaVenda() {
-        // busca o código da última venda armazenada no banco e acresce de um para exibir o da venda nova que será armazenada
+        // busca o cï¿½digo da ï¿½ltima venda armazenada no banco e acresce de um para exibir o da venda nova que serï¿½ armazenada
 
         assert persistVenda != null;
         int codigo = ((VendaDao) persistVenda).buscarCodigo() + 1;
@@ -99,7 +99,7 @@ public class ControlaEV implements ActionListener, FocusListener {
     }
 
     public void atualizaData() {
-        // criar uma variável Date para captar a data.
+        // criar uma variï¿½vel Date para captar a data.
         Date data = new Date(System.currentTimeMillis());
         //formatar pra String
         SimpleDateFormat formatarDate = new SimpleDateFormat("dd/MM/yyyy");
@@ -109,7 +109,7 @@ public class ControlaEV implements ActionListener, FocusListener {
     }
 
     private void adicionaField() {
-    	// adiciona os textfield extras + botões de remoção.
+    	// adiciona os textfield extras + botï¿½es de remoï¿½ï¿½o.
         posicao += 50;
         
         
@@ -262,7 +262,7 @@ public class ControlaEV implements ActionListener, FocusListener {
         });
         EFETUAR_VENDA.getPainel().add(novoRemover);
         EFETUAR_VENDA.getAdicionarItem().setFont(new Font("Tahoma", Font.PLAIN, 15));
-        //aparecer todos a cada adição.
+        //aparecer todos a cada adiï¿½ï¿½o.
         EFETUAR_VENDA.getPainel().repaint();
     }
 
@@ -289,7 +289,7 @@ public class ControlaEV implements ActionListener, FocusListener {
             persistVenda.inserir(venda);
             //insere os item adicionados
             inserirItensAtuais(venda.getProdutos());
-            //atualiza o total e sua exibição com o desconto
+            //atualiza o total e sua exibiï¿½ï¿½o com o desconto
             total = total - total * (venda.getDesconto() / 100);
             //imprime um comprovante 'grosseiro' na tela.
             JOptionPane.showMessageDialog(null, " Venda efetuada com sucesso!!!" + "\n" + " Imprimindo o comprovante!!!"
@@ -331,14 +331,14 @@ public class ControlaEV implements ActionListener, FocusListener {
         if (EFETUAR_VENDA.getCodigoSapato().getText() == null || EFETUAR_VENDA.getCodigoSapato().getText().equals(" ") || EFETUAR_VENDA.getCodigoSapato().getText().equals("")) {
             JOptionPane.showMessageDialog(null, "C\u00F3digo de barras n\u00e3o preenchido.");
         } else {
-            // busca qual é o item a se remover.
+            // busca qual ï¿½ o item a se remover.
             ItemVenda itemErrado = compararPraRemover(Double.parseDouble(EFETUAR_VENDA.getCodigoSapato().getText()));
             if (itemErrado == null)
                 JOptionPane.showMessageDialog(null, "N\u00e3o h\u00e1 esse item na venda ainda");
             else {
                 PRODUTOS.remove(itemErrado);
                 JOptionPane.showMessageDialog(null, "Removido");
-                //atualiza o total e sua exibição
+                //atualiza o total e sua exibiï¿½ï¿½o
                 total = total - Double.parseDouble(EFETUAR_VENDA.getCampoValorUni().getText());
                 EFETUAR_VENDA.getCampoTotal().setText(String.format("%.2f", total));
                 JOptionPane.showMessageDialog(null, "Total atualizado: " + String.format("%.2f", total));
@@ -383,7 +383,7 @@ public class ControlaEV implements ActionListener, FocusListener {
     	if (!EFETUAR_VENDA.getFrame().getContentPane().getBackground().equals(new Color(27,27,27))) {
             EFETUAR_VENDA.getFrame().getContentPane().setBackground(new Color(27,27,27));
             for (int i = 0; i< EFETUAR_VENDA.getFrame().getContentPane().getComponentCount(); i++){
-            	// botão
+            	// botï¿½o
                 if (EFETUAR_VENDA.getFrame().getContentPane().getComponent(i) instanceof JButton){
                     EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setBackground(new Color(55,0,179));
                     EFETUAR_VENDA.getFrame().getContentPane().getComponent(i).setForeground(Color.white);
@@ -408,7 +408,7 @@ public class ControlaEV implements ActionListener, FocusListener {
             // adicionar itens
             EFETUAR_VENDA.getPainel().setBackground(new Color(2,69,122));
             for (int j=0;j< EFETUAR_VENDA.getPainel().getComponentCount();j++){
-            	// botão de inserir produto
+            	// botï¿½o de inserir produto
                 if (EFETUAR_VENDA.getPainel().getComponent(j) instanceof JButton){
                     EFETUAR_VENDA.getPainel().getComponent(j).setBackground(new Color(231,231,231));
                 // onde insere valores do produto
@@ -458,7 +458,7 @@ public class ControlaEV implements ActionListener, FocusListener {
         } else {
             //busca o vendedor no banco.
             vendedor = persistVendedor.buscarPorCodigo(EFETUAR_VENDA.getCampoCpfVendedor().getText());
-            // checa se o vendedor existe antes de armazenar na variável venda.
+            // checa se o vendedor existe antes de armazenar na variï¿½vel venda.
             if (vendedor != null) {
                 venda.setVendedor(vendedor);
                 EFETUAR_VENDA.getCampoNomeVendedor().setText(vendedor.getNome());
@@ -475,7 +475,7 @@ public class ControlaEV implements ActionListener, FocusListener {
         } else {
             //busca o vendedor no banco.
             vendedor = ((VendedorDao) persistVendedor).buscarPorNome(EFETUAR_VENDA.getCampoNomeVendedor().getText());
-            // checa se o vendedor existe antes de armazenar na variável venda.
+            // checa se o vendedor existe antes de armazenar na variï¿½vel venda.
             if (vendedor != null) {
                 venda.setVendedor(vendedor);
                 EFETUAR_VENDA.getCampoCpfVendedor().setText(vendedor.getCPF());
@@ -492,7 +492,7 @@ public class ControlaEV implements ActionListener, FocusListener {
         } else {
             //busca o cliente no banco
             cliente = persistCliente.buscarPorCodigo(EFETUAR_VENDA.getCampoCpfCliente().getText());
-            // checa se o cliente existe antes de armazenar na variável venda.
+            // checa se o cliente existe antes de armazenar na variï¿½vel venda.
             if (cliente != null) {
                 venda.setCliente(cliente);
                 EFETUAR_VENDA.getCampoNomeCliente().setText(cliente.getNome());
@@ -508,7 +508,7 @@ public class ControlaEV implements ActionListener, FocusListener {
         } else {
             //busca o cliente no banco
             cliente = ((ClienteDao) persistCliente).buscarPorNome(EFETUAR_VENDA.getCampoNomeCliente().getText());
-            // checa se o cliente existe antes de armazenar na variável venda.
+            // checa se o cliente existe antes de armazenar na variï¿½vel venda.
             if (cliente != null) {
                 venda.setCliente(cliente);
                 EFETUAR_VENDA.getCampoCpfCliente().setText(cliente.getCPF());
@@ -518,7 +518,7 @@ public class ControlaEV implements ActionListener, FocusListener {
     }
 
     private void validaDesconto() {
-        // impede que o vendedor coloque primeiro o desconto e depois a forma de pagamento e dê mais desconto onde não pode.
+        // impede que o vendedor coloque primeiro o desconto e depois a forma de pagamento e dï¿½ mais desconto onde nï¿½o pode.
         if (Objects.requireNonNull(EFETUAR_VENDA.getEscolhePagamento().getSelectedItem()).toString().equals("Selecionar")) {
             venda.setDesconto(0);
             EFETUAR_VENDA.getCampoDesconto().setText("0");
@@ -529,10 +529,10 @@ public class ControlaEV implements ActionListener, FocusListener {
                 EFETUAR_VENDA.getCampoDesconto().setText("0");
                 JOptionPane.showMessageDialog(new JFrame(), "Desconto n\u00e3o dado em cr\u00E9dito");
             } else {
-                // impede o não preenchimento do desconto.
+                // impede o nï¿½o preenchimento do desconto.
                 if (EFETUAR_VENDA.getCampoDesconto().getText() == null || EFETUAR_VENDA.getCampoDesconto().getText().equals(" ") || EFETUAR_VENDA.getCampoDesconto().getText().equals(""))
                     JOptionPane.showMessageDialog(new JFrame(), "Desconto n\u00e3o preenchido.");
-                    //confere se é inteiro.
+                    //confere se ï¿½ inteiro.
                 else if (isInteger(EFETUAR_VENDA.getCampoDesconto().getText())) {
                     //impede o desconto em valor parcelado
                     if (Integer.parseInt(EFETUAR_VENDA.getCampoParcelas().getText()) == 1) {
@@ -551,7 +551,7 @@ public class ControlaEV implements ActionListener, FocusListener {
                         JOptionPane.showMessageDialog(new JFrame(), "N\u00e3o h\u00e1 desconto em valor parcelado.");
                     }
                 }
-                //impede que uma String ou outro tipo seja atribuído ao desconto que não seja inteiro.
+                //impede que uma String ou outro tipo seja atribuï¿½do ao desconto que nï¿½o seja inteiro.
                 else {
                     venda.setDesconto(0);
                     JOptionPane.showMessageDialog(new JFrame(), "Desconto n\u00e3o \u00E9 valor inteiro.");
@@ -574,23 +574,23 @@ public class ControlaEV implements ActionListener, FocusListener {
     }
 
     private void validaParcelas() {
-        //obriga selecionar o pagamento antes, evitar que parcele onde não pode.
+        //obriga selecionar o pagamento antes, evitar que parcele onde nï¿½o pode.
         if (Objects.requireNonNull(EFETUAR_VENDA.getEscolhePagamento().getSelectedItem()).toString().equals("Selecionar")) {
             JOptionPane.showMessageDialog(new JFrame(), "Selecione o pagamento primeiro!");
             EFETUAR_VENDA.getCampoParcelas().setText("1");
         } else {
-            //checa se é inteiro.
+            //checa se ï¿½ inteiro.
             if (isInteger(EFETUAR_VENDA.getCampoParcelas().getText())) {
-                //impede o parcelamento em dinheiro ou débito.
+                //impede o parcelamento em dinheiro ou dï¿½bito.
                 if (EFETUAR_VENDA.getEscolhePagamento().getSelectedItem().toString().equals("D\u00E9bito") || EFETUAR_VENDA.getEscolhePagamento().getSelectedItem().toString().equals("Dinheiro")) {
                     if (Integer.parseInt(EFETUAR_VENDA.getCampoParcelas().getText()) != 1) {
                         JOptionPane.showMessageDialog(null, "N\u00e3o se parcela em d\u00E9bito nem em dinheiro.");
                         EFETUAR_VENDA.getCampoParcelas().setText("1");
                     }
                 }
-                //opção do crédito
+                //opï¿½ï¿½o do crï¿½dito
                 else {
-                    // define o à vista.
+                    // define o ï¿½ vista.
                     if (Integer.parseInt(EFETUAR_VENDA.getCampoParcelas().getText()) == 1) {
                         JOptionPane.showMessageDialog(null, "Venda  vai ser \u00e0 vista");
                         EFETUAR_VENDA.getCampoParcelas().setText("1");
@@ -600,7 +600,7 @@ public class ControlaEV implements ActionListener, FocusListener {
                         JOptionPane.showMessageDialog(null, "N\u00famero de parcelas inv\u00e1lido");
                         EFETUAR_VENDA.getCampoParcelas().setText("1");
                     }
-                    //notifica inválido;
+                    //notifica invï¿½lido;
                     else {
                         EFETUAR_VENDA.getCampoDesconto().setText("0");
                         EFETUAR_VENDA.getCampoDesconto().setText("0");
@@ -610,23 +610,23 @@ public class ControlaEV implements ActionListener, FocusListener {
                 }
 
             } else {
-                // avisa que não esta preenchida.
+                // avisa que nï¿½o esta preenchida.
                 if (EFETUAR_VENDA.getCampoParcelas().getText() == null || EFETUAR_VENDA.getCampoParcelas().getText().equals(" ") || EFETUAR_VENDA.getCampoParcelas().getText().equals("")) {
                     JOptionPane.showMessageDialog(new JFrame(), "Parcelas n\u00e3o preenchidas.");
                 }
-                //não é valor inteiro;
+                //nï¿½o ï¿½ valor inteiro;
                 JOptionPane.showMessageDialog(new JFrame(), "N\u00famero de parcelas n\u00e3o \u00E9 inteiro.");
             }
         }
     }
 
     private Sapato BuscarSap(JTextField codigo, JTextField marca, JTextField colecao, JTextField modelo, JTextField tipo, JTextField tamanho, JTextField valor) {
-        //checa se é vazio
+        //checa se ï¿½ vazio
         if (codigo.getText() == null || codigo.getText().equals(" ") || codigo.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "C\u00F3digo de barras n\u00e3o preenchido.");
             return null;
         } else {
-            //checa se é double (tipo do codigo de barras)
+            //checa se ï¿½ double (tipo do codigo de barras)
             if (isDouble(codigo.getText())) {
                 //busca o sapato no banco e confere se existe.
                 Sapato sapato = persistSapato.buscarPorCodigo(Double.parseDouble(codigo.getText()));
@@ -641,13 +641,13 @@ public class ControlaEV implements ActionListener, FocusListener {
                     valor.setText(String.valueOf(sapato.getPreco()));
                     return sapato;
                 }
-                // retorna que o código não é válido, ou seja, não há sapato cadastrado
+                // retorna que o cï¿½digo nï¿½o ï¿½ vï¿½lido, ou seja, nï¿½o hï¿½ sapato cadastrado
                 else {
                     JOptionPane.showMessageDialog(null, "c\u00F3digo de Barras Inv\u00e1lido ");
                     return null;
                 }
             }
-            //não é double;
+            //nï¿½o ï¿½ double;
             else {
                 JOptionPane.showMessageDialog(null, "C\u00F3digo de barras n\u00e3o Double.");
                 return null;
@@ -656,7 +656,7 @@ public class ControlaEV implements ActionListener, FocusListener {
     }
 
     private void adicionaItemVenda(Sapato sapato) {
-        // inicializa um item de venda pra guardá-lo
+        // inicializa um item de venda pra guardï¿½-lo
         ItemVenda item = new ItemVenda();
         //refere o sapato no item venda
         item.setSapato(sapato);
@@ -664,7 +664,7 @@ public class ControlaEV implements ActionListener, FocusListener {
         item.setVenda(venda);
         //atualiza o total
         total = total + item.getValorUnitario();
-        //atualiza a exibição do total
+        //atualiza a exibiï¿½ï¿½o do total
         EFETUAR_VENDA.getCampoTotal().setText(String.format("%.2f", total));
         //guarda item venda no vetor de produtos.
         PRODUTOS.add(item);
@@ -814,7 +814,7 @@ public class ControlaEV implements ActionListener, FocusListener {
         }
     }
 
-    //comparar os itens de venda já adicionados para remover o que foi erroneamente add.
+    //comparar os itens de venda jï¿½ adicionados para remover o que foi erroneamente add.
     private static ItemVenda compararPraRemover(Double codigo) {
         ItemVenda errado = null;
         for (ItemVenda est : ControlaEV.PRODUTOS) {
@@ -828,7 +828,7 @@ public class ControlaEV implements ActionListener, FocusListener {
     }
 
 
-    //checar se é valor inteiro.
+    //checar se ï¿½ valor inteiro.
 
     private boolean isInteger(String s) {
         try {
@@ -840,7 +840,7 @@ public class ControlaEV implements ActionListener, FocusListener {
         return true;
     }
 
-    //checar se é valor double.
+    //checar se ï¿½ valor double.
     private boolean isDouble(String s) {
         try {
             Double.parseDouble(s);
@@ -871,13 +871,17 @@ public class ControlaEV implements ActionListener, FocusListener {
     }
 
     private void calculaTroco() {
-
         double valorPago = Double.parseDouble(JOptionPane.showInputDialog(null, "Insira a quantia recebida"));
-        double troco = valorPago - total;
+        double troco = total - valorPago;
+        
+        while (valorPago < total) {
+        	JOptionPane.showMessageDialog(null, "O valor pago estï¿½ menor que o valor total");
+        	valorPago = Double.parseDouble(JOptionPane.showInputDialog(null, "Insira a quantia recebida"));
+        }
+        
         if (troco != 0) {
-            JOptionPane.showMessageDialog(null, "O troco é " + String.format("%.2f", troco));
+            JOptionPane.showMessageDialog(null, "O troco ï¿½ " + String.format("%.2f", troco));
         }
     }
-
 
 }
