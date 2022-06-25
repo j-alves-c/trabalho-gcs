@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import controladora.ControlaIS;
+
 public class InserirSapato extends JFrame {
 	private JFrame frame;
 	private JTextField codigoSapato;
@@ -40,6 +42,7 @@ public class InserirSapato extends JFrame {
 
 	private void initialize() {
 		// Criacao do frame
+		ControlaIS controlaIS = new ControlaIS(this);
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.activeCaption);
 		frame.setBackground(SystemColor.activeCaption);
@@ -50,6 +53,7 @@ public class InserirSapato extends JFrame {
 		dataAtual = new JTextField();
 		dataAtual.setColumns(10);
 		dataAtual.setBounds(742, 10, 140, 30);
+		controlaIS.atualizaData();
 		frame.getContentPane().add(dataAtual);
 
 		JLabel legendaData = new JLabel("Data");
@@ -72,7 +76,7 @@ public class InserirSapato extends JFrame {
 
 		// Criacao das labels
 
-		JLabel legendaCodigoSapato = new JLabel("Cod. Sapato");
+		JLabel legendaCodigoSapato = new JLabel("C\u00f3d. Sapato");
 		legendaCodigoSapato.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		legendaCodigoSapato.setBounds(10, 20, 120, 30);
 		panelLabels.add(legendaCodigoSapato);
@@ -82,7 +86,7 @@ public class InserirSapato extends JFrame {
 		legendaMarca.setBounds(10, 70, 90, 30);
 		panelLabels.add(legendaMarca);
 
-		JLabel legendaColecao = new JLabel("Colecao:");
+		JLabel legendaColecao = new JLabel("Cole\u00e7\u00e3o:");
 		legendaColecao.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		legendaColecao.setBounds(10, 120, 90, 30);
 		panelLabels.add(legendaColecao);
@@ -104,7 +108,7 @@ public class InserirSapato extends JFrame {
 
 		panelLabels.add(legendaTamanho);
 
-		JLabel legendaValorUnit = new JLabel("Val. Unitario:");
+		JLabel legendaValorUnit = new JLabel("Val. Unit\u00e1rio:");
 		legendaValorUnit.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		legendaValorUnit.setBounds(10, 270, 120, 30);
 		panelLabels.add(legendaValorUnit);
@@ -115,6 +119,7 @@ public class InserirSapato extends JFrame {
 		panel.add(codigoSapato);
 		codigoSapato.setForeground(SystemColor.controlDkShadow);
 		codigoSapato.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		codigoSapato.addFocusListener(controlaIS);
 		codigoSapato.setColumns(10);
 
 		campoMarca = new JTextField();
@@ -123,6 +128,7 @@ public class InserirSapato extends JFrame {
 		campoMarca.setForeground(SystemColor.controlDkShadow);
 		campoMarca.setToolTipText("");
 		campoMarca.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		campoMarca.addFocusListener(controlaIS);
 		campoMarca.setColumns(10);
 
 		campoColecao = new JTextField();
@@ -130,6 +136,7 @@ public class InserirSapato extends JFrame {
 		panel.add(campoColecao);
 		campoColecao.setForeground(SystemColor.controlDkShadow);
 		campoColecao.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		campoColecao.addFocusListener(controlaIS);
 		campoColecao.setColumns(10);
 
 		campoModelo = new JTextField();
@@ -137,6 +144,7 @@ public class InserirSapato extends JFrame {
 		panel.add(campoModelo);
 		campoModelo.setForeground(SystemColor.controlDkShadow);
 		campoModelo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		campoModelo.addFocusListener(controlaIS);
 		campoModelo.setColumns(10);
 
 		campoTipo = new JTextField();
@@ -144,6 +152,7 @@ public class InserirSapato extends JFrame {
 		panel.add(campoTipo);
 		campoTipo.setForeground(SystemColor.controlDkShadow);
 		campoTipo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		campoTipo.addFocusListener(controlaIS);
 		campoTipo.setColumns(10);
 
 		campoTam = new JTextField();
@@ -151,6 +160,7 @@ public class InserirSapato extends JFrame {
 		panel.add(campoTam);
 		campoTam.setForeground(SystemColor.controlDkShadow);
 		campoTam.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		campoTam.addFocusListener(controlaIS);
 		campoTam.setColumns(10);
 
 		campoValorUni = new JTextField();
@@ -159,6 +169,7 @@ public class InserirSapato extends JFrame {
 		campoValorUni.setHorizontalAlignment(SwingConstants.CENTER);
 		campoValorUni.setForeground(SystemColor.controlDkShadow);
 		campoValorUni.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		campoValorUni.addFocusListener(controlaIS);
 		campoValorUni.setColumns(10);
 
 		// Criacao dos botões de cancelar e confirmar
@@ -167,12 +178,14 @@ public class InserirSapato extends JFrame {
 		buttonCancelar.setBounds(160, 390, 150, 50);
 		panel.add(buttonCancelar);
 		buttonCancelar.setBackground(SystemColor.activeCaption);
+		buttonCancelar.addActionListener(controlaIS);
 
 		buttonConfirmar = new JButton("CONFIRMAR");
 		buttonConfirmar.setFont(new Font("Dialog", Font.PLAIN, 15));
 		buttonConfirmar.setBounds(330, 390, 150, 50);
 		panel.add(buttonConfirmar);
 		buttonConfirmar.setBackground(SystemColor.activeCaption);
+		buttonConfirmar.addActionListener(controlaIS);
 	}
 
 	public JFrame getFrame() {
@@ -205,6 +218,10 @@ public class InserirSapato extends JFrame {
 
 	public JTextField getCampoValorUni() {
 		return campoValorUni;
+	}
+	
+	public JTextField getDataAtual() {
+		return dataAtual;
 	}
 
 }
