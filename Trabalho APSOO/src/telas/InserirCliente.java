@@ -59,6 +59,7 @@ public class InserirCliente extends JFrame {
 		panelLabels.setBackground(new Color(192, 192, 192));
 		panelLabels.setLayout(null);
 
+		
 		// Criacao das labels
 		JLabel lblCPF = new JLabel("CPF*:");
 		lblCPF.setFont(new Font("Tahoma", Font.PLAIN, 18));

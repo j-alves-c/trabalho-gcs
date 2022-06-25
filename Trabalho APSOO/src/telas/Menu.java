@@ -9,6 +9,7 @@ public class Menu {
 	public JMenuItem novaTroca;
 	public JMenuItem novoCliente;
 	public JMenuItem editarCliente;
+	public JMenuItem novoSapato;
 	public JFrame frame;
 
 	/**
@@ -113,7 +114,7 @@ public class Menu {
 
 				// JPANELInserirCliente inserirCliente = new JPANELInserirCliente();
 				// frame.add(inserirCliente);
-				
+
 				// Tornar o frame Menu invisível
 				// frame.setVisible(false);
 			} catch (Exception g) {
@@ -121,19 +122,38 @@ public class Menu {
 			}
 
 		}));
-		
+
 		editarCliente = new JMenuItem("Editar Cliente");
 		menuCliente.add(editarCliente);
 		editarCliente.addActionListener(e -> EventQueue.invokeLater(() -> {
 			try {
 				EditarCliente editarCliente = new EditarCliente();
 				editarCliente.getFrame().setVisible(true);
-				
+
 				// JPANELInserirCliente inserirCliente = new JPANELInserirCliente();
 				// frame.add(inserirCliente);
-				
+
 				// Tornar o frame Menu invisível
 				// frame.setVisible(false);
+			} catch (Exception g) {
+				g.printStackTrace();
+			}
+
+		}));
+
+		// menu para o sapato
+		JMenu menuSapato = new JMenu("SAPATO");
+		menuSapato.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		menuSapato.setHorizontalAlignment(SwingConstants.CENTER);
+		barraDeMenu.add(menuSapato);
+
+		novoSapato = new JMenuItem("Inserir Sapato");
+		menuSapato.add(novoSapato);
+		novoSapato.addActionListener(e -> EventQueue.invokeLater(() -> {
+			try {
+				InserirSapato inserirSapato = new InserirSapato();
+				inserirSapato.getFrame().setVisible(true);
+
 			} catch (Exception g) {
 				g.printStackTrace();
 			}
