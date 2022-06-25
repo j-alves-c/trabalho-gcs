@@ -17,17 +17,9 @@ public class InserirCliente extends JFrame {
 	private JTextField dataAtual;
 	private JTextField txtEmail;
 	private JTextField txtUF;
-
-	public JButton getButtonCancelar() {
-		return buttonCancelar;
-	}
-
-	public JButton getButtonConfirmar() {
-		return buttonConfirmar;
-	}
-
-	private  JButton buttonCancelar;
-	private  JButton buttonConfirmar;
+	private JButton buttonLimparCampos;
+	private JButton buttonCancelar;
+	private JButton buttonConfirmar;
 
 	public InserirCliente() {
 		initialize();
@@ -192,17 +184,24 @@ public class InserirCliente extends JFrame {
 		txtUF.setColumns(10);
 		txtUF.addFocusListener(contIC);
 
-		// Criacao dos botões de cancelar e confirmar
+		// Criacao dos botões de limpar, cancelar e confirmar
+		buttonLimparCampos = new JButton("LIMPAR");
+		buttonLimparCampos.setFont(new Font("Dialog", Font.PLAIN, 15));
+		buttonLimparCampos.setBackground(SystemColor.activeCaption);
+		buttonLimparCampos.setBounds(126, 390, 150, 50);
+		buttonLimparCampos.addActionListener(contIC);
+		panel.add(buttonLimparCampos);
+
 		buttonCancelar = new JButton("CANCELAR");
 		buttonCancelar.setFont(new Font("Dialog", Font.PLAIN, 15));
-		buttonCancelar.setBounds(130, 390, 150, 50);
+		buttonCancelar.setBounds(286, 390, 150, 50);
 		buttonCancelar.addActionListener(contIC);
 		panel.add(buttonCancelar);
 		buttonCancelar.setBackground(SystemColor.activeCaption);
 
 		buttonConfirmar = new JButton("CONFIRMAR");
 		buttonConfirmar.setFont(new Font("Dialog", Font.PLAIN, 15));
-		buttonConfirmar.setBounds(300, 390, 150, 50);
+		buttonConfirmar.setBounds(446, 390, 150, 50);
 		buttonConfirmar.addActionListener(contIC);
 		panel.add(buttonConfirmar);
 		buttonConfirmar.setBackground(SystemColor.activeCaption);
@@ -211,6 +210,7 @@ public class InserirCliente extends JFrame {
 	public JFrame getFrame() {
 		return frame;
 	}
+
 	public JTextField getTxtCPF() {
 		return txtCPF;
 	}
@@ -246,9 +246,21 @@ public class InserirCliente extends JFrame {
 	public JTextField getDataAtual() {
 		return dataAtual;
 	}
+
 	public JTextField getTxtEmail() {
 		return txtEmail;
 	}
 
+	public JButton getButtonLimparCampos() {
+		return buttonLimparCampos;
+	}
+
+	public JButton getButtonCancelar() {
+		return buttonCancelar;
+	}
+
+	public JButton getButtonConfirmar() {
+		return buttonConfirmar;
+	}
 
 }

@@ -18,11 +18,10 @@ public class EfetuarDevolucao {
 	private JTextField campoNomeCliente;
 	private JPanel painel;
 	private JTextField campoValor;
+	private JButton limparCampos;
 	private JButton cancelar;
 	private JButton confirmar;
 	private JButton mudarTema;
-
-
 
 	/**
 	 * Create the application.
@@ -43,7 +42,7 @@ public class EfetuarDevolucao {
 
 		JLabel legendaDevolSapatos = new JLabel();
 		legendaDevolSapatos.setText("Devolu\u00E7\u00E3o Sapatos");
-		legendaDevolSapatos.setForeground(new Color(51,153,255));
+		legendaDevolSapatos.setForeground(new Color(51, 153, 255));
 		legendaDevolSapatos.setBackground(SystemColor.control);
 		legendaDevolSapatos.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		legendaDevolSapatos.setBounds(10, 11, 276, 45);
@@ -63,7 +62,7 @@ public class EfetuarDevolucao {
 		campoDataDevolucao.setBounds(759, 15, 136, 30);
 		controlaED.atualizaData();
 		frame.getContentPane().add(campoDataDevolucao);
-		
+
 		campoCodigoDevolucao = new JTextField();
 		campoCodigoDevolucao.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		campoCodigoDevolucao.setBackground(Color.WHITE);
@@ -71,7 +70,6 @@ public class EfetuarDevolucao {
 		campoCodigoDevolucao.setColumns(10);
 		controlaED.comecaDevolucao();
 		frame.getContentPane().add(campoCodigoDevolucao);
-
 
 		JLabel legendaData = new JLabel();
 		legendaData.setText("Data Devolu\u00E7\u00E3o:");
@@ -86,7 +84,7 @@ public class EfetuarDevolucao {
 		legendaCpfVendedor.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		legendaCpfVendedor.setBounds(20, 62, 110, 30);
 		frame.getContentPane().add(legendaCpfVendedor);
-		
+
 		campoCpfVendedor = new JTextField();
 		campoCpfVendedor.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		campoCpfVendedor.setBounds(140, 62, 276, 30);
@@ -95,14 +93,13 @@ public class EfetuarDevolucao {
 		campoCpfVendedor.addFocusListener(controlaED);
 		frame.getContentPane().add(campoCpfVendedor);
 
-
 		JLabel legendaNomeVendedor = new JLabel();
 		legendaNomeVendedor.setText("Nome Vendedor:");
 		legendaNomeVendedor.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		legendaNomeVendedor.setBackground(SystemColor.menu);
 		legendaNomeVendedor.setBounds(487, 62, 122, 30);
 		frame.getContentPane().add(legendaNomeVendedor);
-		
+
 		campoNomeVendedor = new JTextField();
 		campoNomeVendedor.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		campoNomeVendedor.setColumns(10);
@@ -116,7 +113,7 @@ public class EfetuarDevolucao {
 		legendaCodigoVenda.setBackground(SystemColor.menu);
 		legendaCodigoVenda.setBounds(20, 105, 110, 30);
 		frame.getContentPane().add(legendaCodigoVenda);
-		
+
 		campoCodigoVenda = new JTextField();
 		campoCodigoVenda.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		campoCodigoVenda.setColumns(10);
@@ -130,7 +127,7 @@ public class EfetuarDevolucao {
 		legendaDataVenda.setBackground(SystemColor.menu);
 		legendaDataVenda.setBounds(487, 105, 122, 30);
 		frame.getContentPane().add(legendaDataVenda);
-		
+
 		campoDataVenda = new JTextField();
 		campoDataVenda.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		campoDataVenda.setColumns(10);
@@ -143,7 +140,7 @@ public class EfetuarDevolucao {
 		legendaCpfCliente.setBackground(SystemColor.menu);
 		legendaCpfCliente.setBounds(20, 151, 110, 30);
 		frame.getContentPane().add(legendaCpfCliente);
-		
+
 		campoCpfCliente = new JTextField();
 		campoCpfCliente.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		campoCpfCliente.setColumns(10);
@@ -156,43 +153,43 @@ public class EfetuarDevolucao {
 		legendaNomeCliente.setBackground(SystemColor.menu);
 		legendaNomeCliente.setBounds(487, 151, 122, 30);
 		frame.getContentPane().add(legendaNomeCliente);
-		
+
 		campoNomeCliente = new JTextField();
 		campoNomeCliente.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		campoNomeCliente.setColumns(10);
 		campoNomeCliente.setBounds(619, 151, 276, 30);
 		frame.getContentPane().add(campoNomeCliente);
-		
+
 		JLabel legendaCodigoBarras = new JLabel("C\u00F3digo de Barras:");
 		legendaCodigoBarras.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		legendaCodigoBarras.setBounds(20, 198, 129, 30);
 		frame.getContentPane().add(legendaCodigoBarras);
-		
+
 		JLabel legendaMarca = new JLabel("Marca");
 		legendaMarca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		legendaMarca.setBounds(190, 198, 61, 30);
 		frame.getContentPane().add(legendaMarca);
-		
+
 		JLabel legendaColecao = new JLabel("Cole\u00E7\u00E3o");
 		legendaColecao.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		legendaColecao.setBounds(300, 198, 76, 30);
 		frame.getContentPane().add(legendaColecao);
-		
+
 		JLabel legendaModelo = new JLabel("Modelo");
 		legendaModelo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		legendaModelo.setBounds(415, 198, 61, 30);
 		frame.getContentPane().add(legendaModelo);
-		
+
 		JLabel legendaTipo = new JLabel("Tipo");
 		legendaTipo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		legendaTipo.setBounds(570, 198, 61, 30);
 		frame.getContentPane().add(legendaTipo);
-		
+
 		JLabel legendaTamanho = new JLabel("TAM");
 		legendaTamanho.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		legendaTamanho.setBounds(670, 198, 45, 30);
 		frame.getContentPane().add(legendaTamanho);
-		
+
 		JLabel legendaValor = new JLabel("Valor UNI");
 		legendaValor.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		legendaValor.setBounds(730, 198, 77, 30);
@@ -205,42 +202,51 @@ public class EfetuarDevolucao {
 
 		painel.setLayout(null);
 		frame.getContentPane().add(painel);
-		
-		cancelar = new JButton("CANCELAR");
-		cancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		cancelar.setBounds(570, 495, 122, 30);
-		cancelar.addActionListener(controlaED);
-		frame.getContentPane().add(cancelar);
-		
-		confirmar = new JButton("CONFIRMAR");
-		confirmar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		confirmar.setBounds(700, 495, 122, 30);
-		confirmar.addActionListener(controlaED);
-		frame.getContentPane().add(confirmar);
 
-		JLabel legendaValorDevol = new JLabel("Valor a devolver R$:");
-		legendaValorDevol.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		legendaValorDevol.setBounds(100, 495, 139, 30);
-		frame.getContentPane().add(legendaValorDevol);
-		
+		// VALOR DA COMPRA
 		campoValor = new JTextField();
 		campoValor.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		campoValor.setText("0,00");
-		campoValor.setBounds(250, 495, 80, 30);
+		campoValor.setBounds(220, 495, 80, 30);
 		frame.getContentPane().add(campoValor);
 		campoValor.setColumns(10);
-		
-// botão de mudar o tema
-				mudarTema = new JButton("Modo");
-				mudarTema.setHorizontalAlignment(SwingConstants.LEFT);
-				mudarTema.setFont(new Font("Tahoma", Font.PLAIN, 13));
-				mudarTema.setBounds(10, 495, 65, 30);
-				frame.getContentPane().add(mudarTema);
-				mudarTema.addActionListener(controlaED);
+
+		// LABEL VALOR A DEVOLVER
+		JLabel legendaValorDevol = new JLabel("Valor a devolver R$:");
+		legendaValorDevol.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		legendaValorDevol.setBounds(320, 495, 139, 30);
+		frame.getContentPane().add(legendaValorDevol);
+
+		// BOTÃƒO DE LIMPAR TODOS OS CAMPOS DO PAINEL DE ITEM DE SAPATOS
+		limparCampos = new JButton("LIMPAR");
+		limparCampos.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		limparCampos.setBounds(542, 495, 100, 30);
+		limparCampos.addActionListener(controlaED);
+		frame.getContentPane().add(limparCampos);
+
+		cancelar = new JButton("CANCELAR");
+		cancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		cancelar.setBounds(650, 495, 122, 30);
+		cancelar.addActionListener(controlaED);
+		frame.getContentPane().add(cancelar);
+
+		confirmar = new JButton("CONFIRMAR");
+		confirmar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		confirmar.setBounds(780, 495, 122, 30);
+		confirmar.addActionListener(controlaED);
+		frame.getContentPane().add(confirmar);
+
+		// botï¿½o de mudar o tema
+		mudarTema = new JButton("Modo");
+		mudarTema.setHorizontalAlignment(SwingConstants.LEFT);
+		mudarTema.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		mudarTema.setBounds(10, 495, 65, 30);
+		frame.getContentPane().add(mudarTema);
+		mudarTema.addActionListener(controlaED);
 
 	}
 
-	public JFrame getFrame(){
+	public JFrame getFrame() {
 		return frame;
 	}
 
@@ -284,6 +290,10 @@ public class EfetuarDevolucao {
 		return painel;
 	}
 
+	public JButton getLimparCampos() {
+		return limparCampos;
+	}
+
 	public JButton getCancelar() {
 		return cancelar;
 	}
@@ -291,7 +301,7 @@ public class EfetuarDevolucao {
 	public JButton getConfirmar() {
 		return confirmar;
 	}
-	
+
 	public JButton getMudarTema() {
 		return mudarTema;
 	}
