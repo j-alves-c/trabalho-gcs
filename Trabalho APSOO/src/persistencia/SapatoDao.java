@@ -34,9 +34,9 @@ public class SapatoDao implements InterfaceDAO<Sapato, Double> {
 
             int qtd = preStm.executeUpdate();
             if (qtd > 0) {
-                System.out.println("Salvo no banco");
+
             } else {
-                System.out.println("n�o foi possivel salvar no banco");
+                System.out.println("n\u00e3o foi possivel salvar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -54,9 +54,9 @@ public class SapatoDao implements InterfaceDAO<Sapato, Double> {
 
             int qtd = preStm.executeUpdate();
             if (qtd > 0) {
-                System.out.println("Sapato atualizado");
+
             } else {
-                System.out.println("N�o foi possivel atualizar no banco");
+                System.out.println("N\u00e3o foi possivel atualizar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -74,9 +74,9 @@ public class SapatoDao implements InterfaceDAO<Sapato, Double> {
 
             int qtd = preStm.executeUpdate();
             if (qtd > 0) {
-                System.out.println("Sapato atualizado");
+
             } else {
-                System.out.println("N�o foi possivel atualizar no banco");
+                System.out.println("N\u00e3o foi possivel atualizar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -96,9 +96,9 @@ public class SapatoDao implements InterfaceDAO<Sapato, Double> {
             preStm.setDouble(1, entidade.getCodigoDeBarras());
             int qtd = preStm.executeUpdate();
             if (qtd > 0) {
-                System.out.println("Deletado do banco");
+
             } else {
-                System.out.println("N�o foi possivel deletar no banco");
+                System.out.println("N\u00e3o foi possivel deletar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -121,7 +121,6 @@ public class SapatoDao implements InterfaceDAO<Sapato, Double> {
                 sap.setNumero(resultado.getInt("numero"));
                 sap.setModelo(resultado.getString("modelo"));
                 sap.setTipo(resultado.getString("tipo"));
-                System.out.println("Encontrado");
                 sap.setColecao(resultado.getString("colecao"));
                 sap.setMarca(resultado.getString("marca"));
                 sap.setPreco(resultado.getDouble("preco"));

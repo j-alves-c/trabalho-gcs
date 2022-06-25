@@ -45,9 +45,9 @@ public class VendaDao implements InterfaceDAO<Venda, Integer> {
                 entidade.setCodigo(resultado.getInt("codigodavenda"));
             }
             if (qtd > 0) {
-                System.out.println("Salvo no banco");
+
             } else {
-                System.out.println("não foi possivel salvar no banco");
+                System.out.println("n\u00e3o foi possivel salvar no banco");
             }
         } catch (SQLException | ParseException e) {
             // TODO Auto-generated catch block

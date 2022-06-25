@@ -81,8 +81,8 @@ public class ControlaEV implements ActionListener, FocusListener {
 	}
 
 	public void iniciaVenda() {
-		// busca o c�digo da �ltima venda armazenada no banco e acresce de um para
-		// exibir o da venda nova que ser� armazenada
+		// busca o codigo da ultima venda armazenada no banco e acresce de um para
+		// exibir o da venda nova que sera armazenada
 
 		assert persistVenda != null;
 		int codigo = ((VendaDao) persistVenda).buscarCodigo() + 1;
@@ -341,14 +341,14 @@ public class ControlaEV implements ActionListener, FocusListener {
 				|| EFETUAR_VENDA.getCodigoSapato().getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "C\u00F3digo de barras n\u00e3o preenchido.");
 		} else {
-			// busca qual � o item a se remover.
+			// busca qual o item a se remover.
 			ItemVenda itemErrado = compararPraRemover(Double.parseDouble(EFETUAR_VENDA.getCodigoSapato().getText()));
 			if (itemErrado == null)
 				JOptionPane.showMessageDialog(null, "N\u00e3o h\u00e1 esse item na venda ainda");
 			else {
 				PRODUTOS.remove(itemErrado);
 				JOptionPane.showMessageDialog(null, "Removido");
-				// atualiza o total e sua exibi��o
+				// atualiza o total e sua exibi\u00e7\u00e3o
 				total = total - Double.parseDouble(EFETUAR_VENDA.getCampoValorUni().getText());
 				EFETUAR_VENDA.getCampoTotal().setText(String.format("%.2f", total));
 				JOptionPane.showMessageDialog(null, "Total atualizado: " + String.format("%.2f", total));
@@ -608,9 +608,9 @@ public class ControlaEV implements ActionListener, FocusListener {
 			JOptionPane.showMessageDialog(new JFrame(), "Selecione o pagamento primeiro!");
 			EFETUAR_VENDA.getCampoParcelas().setText("1");
 		} else {
-			// checa se � inteiro.
+			// checa se \u00e9 inteiro.
 			if (isInteger(EFETUAR_VENDA.getCampoParcelas().getText())) {
-				// impede o parcelamento em dinheiro ou d�bito.
+				// impede o parcelamento em dinheiro ou d\u00e9bito.
 				if (EFETUAR_VENDA.getEscolhePagamento().getSelectedItem().toString().equals("D\u00E9bito")
 						|| EFETUAR_VENDA.getEscolhePagamento().getSelectedItem().toString().equals("Dinheiro")) {
 					if (Integer.parseInt(EFETUAR_VENDA.getCampoParcelas().getText()) != 1) {
@@ -618,9 +618,9 @@ public class ControlaEV implements ActionListener, FocusListener {
 						EFETUAR_VENDA.getCampoParcelas().setText("1");
 					}
 				}
-				// op��o do cr�dito
+				// op\u00e7\u00e3o o do cr\u00e9dito
 				else {
-					// define o � vista.
+					// define o  vista.
 					if (Integer.parseInt(EFETUAR_VENDA.getCampoParcelas().getText()) == 1) {
 						JOptionPane.showMessageDialog(null, "Venda  vai ser \u00e0 vista");
 						EFETUAR_VENDA.getCampoParcelas().setText("1");
@@ -631,7 +631,7 @@ public class ControlaEV implements ActionListener, FocusListener {
 						JOptionPane.showMessageDialog(null, "N\u00famero de parcelas inv\u00e1lido");
 						EFETUAR_VENDA.getCampoParcelas().setText("1");
 					}
-					// notifica inv�lido;
+					// notifica inv\u00e1lido;
 					else {
 						EFETUAR_VENDA.getCampoDesconto().setText("0");
 						EFETUAR_VENDA.getCampoDesconto().setText("0");
@@ -641,13 +641,13 @@ public class ControlaEV implements ActionListener, FocusListener {
 				}
 
 			} else {
-				// avisa que n�o esta preenchida.
+				// avisa que n\u00e1o esta preenchida.
 				if (EFETUAR_VENDA.getCampoParcelas().getText() == null
 						|| EFETUAR_VENDA.getCampoParcelas().getText().equals(" ")
 						|| EFETUAR_VENDA.getCampoParcelas().getText().equals("")) {
 					JOptionPane.showMessageDialog(new JFrame(), "Parcelas n\u00e3o preenchidas.");
 				}
-				// n�o � valor inteiro;
+				// n\u00e3o \u00e9 valor inteiro;
 				JOptionPane.showMessageDialog(new JFrame(), "N\u00famero de parcelas n\u00e3o \u00E9 inteiro.");
 			}
 		}
@@ -655,12 +655,12 @@ public class ControlaEV implements ActionListener, FocusListener {
 
 	private Sapato BuscarSap(JTextField codigo, JTextField marca, JTextField colecao, JTextField modelo,
 			JTextField tipo, JTextField tamanho, JTextField valor) {
-		// checa se � vazio
+		// checa se \u00e9 vazio
 		if (codigo.getText() == null || codigo.getText().equals(" ") || codigo.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "C\u00F3digo de barras n\u00e3o preenchido.");
 			return null;
 		} else {
-			// checa se � double (tipo do codigo de barras)
+			// checa se \u00e9 double (tipo do codigo de barras)
 			if (isDouble(codigo.getText())) {
 				// busca o sapato no banco e confere se existe.
 				Sapato sapato = persistSapato.buscarPorCodigo(Double.parseDouble(codigo.getText()));
@@ -675,13 +675,13 @@ public class ControlaEV implements ActionListener, FocusListener {
 					valor.setText(String.valueOf(sapato.getPreco()));
 					return sapato;
 				}
-				// retorna que o c�digo n�o � v�lido, ou seja, n�o h� sapato cadastrado
+				// retorna que o codigo nao e valido, ou seja, nao ha sapato cadastrado
 				else {
 					JOptionPane.showMessageDialog(null, "c\u00F3digo de Barras Inv\u00e1lido ");
 					return null;
 				}
 			}
-			// n�o � double;
+			// n\u00E3o \u00e9 double;
 			else {
 				JOptionPane.showMessageDialog(null, "C\u00F3digo de barras n\u00e3o Double.");
 				return null;
@@ -690,7 +690,7 @@ public class ControlaEV implements ActionListener, FocusListener {
 	}
 
 	private void adicionaItemVenda(Sapato sapato) {
-		// inicializa um item de venda pra guard�-lo
+		// inicializa um item de venda pra guard\u00e1-lo
 		ItemVenda item = new ItemVenda();
 		// refere o sapato no item venda
 		item.setSapato(sapato);
@@ -698,7 +698,7 @@ public class ControlaEV implements ActionListener, FocusListener {
 		item.setVenda(venda);
 		// atualiza o total
 		total = total + item.getValorUnitario();
-		// atualiza a exibi��o do total
+		// atualiza a exibi\u00e7\u00e3o do total
 		EFETUAR_VENDA.getCampoTotal().setText(String.format("%.2f", total));
 		// guarda item venda no vetor de produtos.
 		PRODUTOS.add(item);
@@ -849,7 +849,7 @@ public class ControlaEV implements ActionListener, FocusListener {
 		}
 	}
 
-	// comparar os itens de venda j� adicionados para remover o que foi erroneamente
+	// comparar os itens de venda j\u00e1 adicionados para remover o que foi erroneamente
 	// add.
 	private static ItemVenda compararPraRemover(Double codigo) {
 		ItemVenda errado = null;
@@ -863,7 +863,7 @@ public class ControlaEV implements ActionListener, FocusListener {
 		return errado;
 	}
 
-	// checar se � valor inteiro.
+	// checar se \u00e9 valor inteiro.
 
 	private boolean isInteger(String s) {
 		try {
@@ -875,7 +875,7 @@ public class ControlaEV implements ActionListener, FocusListener {
 		return true;
 	}
 
-	// checar se � valor double.
+	// checar se \u00e9 valor double.
 	private boolean isDouble(String s) {
 		try {
 			Double.parseDouble(s);
@@ -910,12 +910,12 @@ public class ControlaEV implements ActionListener, FocusListener {
 		double troco = total - valorPago;
 
 		while (valorPago < total) {
-			JOptionPane.showMessageDialog(null, "O valor pago est� menor que o valor total");
+			JOptionPane.showMessageDialog(null, "O valor pago est\u00e1 menor que o valor total");
 			valorPago = Double.parseDouble(JOptionPane.showInputDialog(null, "Insira a quantia recebida"));
 		}
 
 		if (troco != 0) {
-			JOptionPane.showMessageDialog(null, "O troco � " + String.format("%.2f", troco));
+			JOptionPane.showMessageDialog(null, "O troco \u00e9 " + String.format("%.2f", troco));
 		}
 	}
 

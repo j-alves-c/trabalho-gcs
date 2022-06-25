@@ -42,9 +42,8 @@ public class DevolucaoDao implements InterfaceDAO<Devolucao, Integer> {
                 entidade.setCodigoDaDevolucao(resultado.getInt("codigodevolucao"));
             }
             if (qtd > 0) {
-                System.out.println("Salvo no banco");
             } else {
-                System.out.println("não foi possivel salvar no banco");
+                System.out.println("n\u00e3o foi possivel salvar no banco");
             }
         } catch (SQLException | ParseException e) {
             // TODO Auto-generated catch block

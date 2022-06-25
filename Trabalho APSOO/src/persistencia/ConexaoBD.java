@@ -25,7 +25,7 @@ public class ConexaoBD {
 
             // escreve sysout e aperta ctrl + espaço //
         } catch (SQLException ex) {
-            System.err.println("Erro na conexão" + ex.getMessage());
+            System.err.println("Erro na conex\u00e3o" + ex.getMessage());
         } catch (Exception ex) {
             System.err.println("Erro geral" + ex.getMessage());
         }

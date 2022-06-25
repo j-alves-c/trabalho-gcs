@@ -30,11 +30,11 @@ public class ItemVendadao implements InterfaceDAO<ItemVenda,Integer> {
 
             int qtd=preStm.executeUpdate();
             if(qtd>0){
-                System.out.println("Item adicionado a venda");
+
 
                 SAPATO_DAO.atualizar(SAPATO_DAO.buscarPorCodigo(entidade.getSapato().getCodigoDeBarras()));
             }else{
-                System.out.println("n�o foi possivel salvar no banco");
+                System.out.println("n\u00e3o foi possivel salvar no banco");
             }
 
         } catch (SQLException e ) {
@@ -56,9 +56,9 @@ public class ItemVendadao implements InterfaceDAO<ItemVenda,Integer> {
             preStm.setDouble(1, entidade.getSapato().getCodigoDeBarras());
             int qtd=preStm.executeUpdate();
             if(qtd>0){
-                System.out.println("Atualizado no banco");
+
             }else{
-                System.out.println("N�o foi possivel atualizar no banco");
+                System.out.println("N\u00e3o foi possivel atualizar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -77,9 +77,9 @@ public class ItemVendadao implements InterfaceDAO<ItemVenda,Integer> {
             preStmt.setInt(1, entidade.getCodigoItemVenda());
             int qtd=preStmt.executeUpdate();
             if(qtd>0 ){
-                System.out.println("Deletado do banco");
+
             }else{
-                System.out.println("N�o foi possivel deletar no banco");
+                System.out.println("N\u00e3o foi possivel deletar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block

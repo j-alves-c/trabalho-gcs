@@ -112,11 +112,6 @@ public class Menu {
 				InserirCliente inserirCliente = new InserirCliente();
 				inserirCliente.getFrame().setVisible(true);
 
-				// JPANELInserirCliente inserirCliente = new JPANELInserirCliente();
-				// frame.add(inserirCliente);
-
-				// Tornar o frame Menu invisível
-				// frame.setVisible(false);
 			} catch (Exception g) {
 				g.printStackTrace();
 			}
@@ -130,11 +125,6 @@ public class Menu {
 				EditarCliente editarCliente = new EditarCliente();
 				editarCliente.getFrame().setVisible(true);
 
-				// JPANELInserirCliente inserirCliente = new JPANELInserirCliente();
-				// frame.add(inserirCliente);
-
-				// Tornar o frame Menu invisível
-				// frame.setVisible(false);
 			} catch (Exception g) {
 				g.printStackTrace();
 			}

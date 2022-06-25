@@ -51,7 +51,7 @@ public class VendedorDao implements InterfaceDAO<Vendedor, String> {
             if (qtd > 0 && qtd1 > 0 && qtd2 > 0) {
                 System.out.println("Salvo no banco");
             } else {
-                System.out.println("não foi possivel salvar no banco");
+                System.out.println("n\u00e3o foi possivel salvar no banco");
             }
         } catch (SQLException | ParseException e) {
             // TODO Auto-generated catch block
@@ -71,7 +71,7 @@ public class VendedorDao implements InterfaceDAO<Vendedor, String> {
             if (qtd > 0) {
                 System.out.println("Atualizado no banco");
             } else {
-                System.out.println("Não foi possivel atualizar no banco");
+                System.out.println("N\u00e3o foi possivel atualizar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -101,9 +101,8 @@ public class VendedorDao implements InterfaceDAO<Vendedor, String> {
 
 
             if (qtd > 0 && qtd1 > 0 && qtd2 > 0) {
-                System.out.println("Deletado do banco");
             } else {
-                System.out.println("Não foi possivel deletar no banco");
+                System.out.println("N\u00e3o foi possivel deletar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
