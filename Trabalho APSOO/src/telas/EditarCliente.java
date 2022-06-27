@@ -9,43 +9,6 @@ public class EditarCliente extends JFrame {
 
 	private JFrame frame;
 	private JTextField txtCPF;
-
-	public JTextField getTxtCPF() {
-		return txtCPF;
-	}
-
-	public JTextField getTxtNome() {
-		return txtNome;
-	}
-
-	public JTextField getTxtEndereco() {
-		return txtEndereco;
-	}
-
-	public JTextField getTxtEmail() {
-		return txtEmail;
-	}
-
-	public JTextField getTxtCidade() {
-		return txtCidade;
-	}
-
-	public JTextField getTxtTelefone() {
-		return txtTelefone;
-	}
-
-	public JTextField getDataAtual() {
-		return dataAtual;
-	}
-
-	public JTextField getTxtMs() {
-		return txtMs;
-	}
-
-	public JButton getButtonSalvar() {
-		return buttonSalvar;
-	}
-
 	private JTextField txtNome;
 	private JTextField txtEndereco;
 	private JTextField txtEmail;
@@ -53,12 +16,8 @@ public class EditarCliente extends JFrame {
 	private JTextField txtTelefone;
 	private JTextField dataAtual;
 	private JTextField txtMs;
+	private JButton buttonLimparCampos;
 	private JButton buttonSalvar;
-
-	public JButton getButtonCancelar() {
-		return buttonCancelar;
-	}
-
 	private JButton buttonCancelar;
 
 	public EditarCliente() {
@@ -136,7 +95,6 @@ public class EditarCliente extends JFrame {
 		lblUF.setHorizontalAlignment(SwingConstants.LEFT);
 		lblUF.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
-
 		// Criacao dos textFields
 		txtCPF = new JTextField();
 		txtCPF.setBounds(130, 20, 200, 30);
@@ -187,8 +145,6 @@ public class EditarCliente extends JFrame {
 		txtTelefone.addFocusListener(controlaEC);
 		txtTelefone.setColumns(10);
 
-
-
 		txtMs = new JTextField();
 		txtMs.setBounds(410, 220, 50, 30);
 		panel.add(txtMs);
@@ -199,16 +155,23 @@ public class EditarCliente extends JFrame {
 		txtMs.setColumns(10);
 
 		// Criacao dos botões de cancelar e confirmar
+		buttonLimparCampos = new JButton("LIMPAR");
+		buttonLimparCampos.setFont(new Font("Dialog", Font.PLAIN, 15));
+		buttonLimparCampos.setBackground(SystemColor.activeCaption);
+		buttonLimparCampos.setBounds(126, 365, 150, 50);
+		buttonLimparCampos.addActionListener(controlaEC);
+		panel.add(buttonLimparCampos);
+
 		buttonCancelar = new JButton("CANCELAR");
 		buttonCancelar.setFont(new Font("Dialog", Font.PLAIN, 15));
-		buttonCancelar.setBounds(110, 365, 150, 50);
+		buttonCancelar.setBounds(286, 365, 150, 50);
 		panel.add(buttonCancelar);
 		buttonCancelar.addActionListener(controlaEC);
 		buttonCancelar.setBackground(SystemColor.activeCaption);
 
 		buttonSalvar = new JButton("SALVAR");
 		buttonSalvar.setFont(new Font("Dialog", Font.PLAIN, 15));
-		buttonSalvar.setBounds(280, 365, 100, 50);
+		buttonSalvar.setBounds(446, 365, 150, 50);
 		panel.add(buttonSalvar);
 		buttonSalvar.addActionListener(controlaEC);
 		buttonSalvar.setBackground(SystemColor.activeCaption);
@@ -216,5 +179,49 @@ public class EditarCliente extends JFrame {
 
 	public JFrame getFrame() {
 		return frame;
+	}
+
+	public JTextField getTxtCPF() {
+		return txtCPF;
+	}
+
+	public JTextField getTxtNome() {
+		return txtNome;
+	}
+
+	public JTextField getTxtEndereco() {
+		return txtEndereco;
+	}
+
+	public JTextField getTxtEmail() {
+		return txtEmail;
+	}
+
+	public JTextField getTxtCidade() {
+		return txtCidade;
+	}
+
+	public JTextField getTxtTelefone() {
+		return txtTelefone;
+	}
+
+	public JTextField getDataAtual() {
+		return dataAtual;
+	}
+
+	public JTextField getTxtMs() {
+		return txtMs;
+	}
+
+	public JButton getButtonLimparCampos() {
+		return buttonLimparCampos;
+	}
+
+	public JButton getButtonCancelar() {
+		return buttonCancelar;
+	}
+
+	public JButton getButtonSalvar() {
+		return buttonSalvar;
 	}
 }

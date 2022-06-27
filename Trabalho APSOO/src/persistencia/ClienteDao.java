@@ -43,9 +43,9 @@ public class ClienteDao implements InterfaceDAO<Cliente, String> {
             int qtd1 = preStm1.executeUpdate();
 
             if (qtd > 0 && qtd1 > 0) {
-                System.out.println("Salvo no banco");
+
             } else {
-                System.out.println("não foi possível salvar no banco");
+                System.out.println("n\u00e3o foi possível salvar no banco");
             }
         } catch (SQLException | ParseException e) {
             // TODO Auto-generated catch block
@@ -64,9 +64,8 @@ public class ClienteDao implements InterfaceDAO<Cliente, String> {
             preStm.setString(3, entidade.getCPF());
             int qtd = preStm.executeUpdate();
             if (qtd > 0) {
-                System.out.println("Atualizado no banco");
             } else {
-                System.out.println("Não foi possível atualizar no banco");
+                System.out.println("N\u00e3o foi possível atualizar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -92,9 +91,8 @@ public class ClienteDao implements InterfaceDAO<Cliente, String> {
 
 
             if (qtd > 0 && qtd1 > 0) {
-                System.out.println("Deletado do banco");
             } else {
-                System.out.println("Não foi possível deletar no banco");
+                System.out.println("N\u00e3o foi possível deletar no banco");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block

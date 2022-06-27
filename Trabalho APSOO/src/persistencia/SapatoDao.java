@@ -29,12 +29,12 @@ public class SapatoDao implements InterfaceDAO<Sapato, Double> {
             preStm.setString(5, entidade.getColecao());
             preStm.setString(6, entidade.getMarca());
             preStm.setDouble(7, entidade.getPreco());
-            preStm.setInt(8, entidade.getQuantidade());
+            preStm.setInt(8, 1000);
 
 
             int qtd = preStm.executeUpdate();
             if (qtd > 0) {
-                System.out.println("Salvo no banco");
+                
             } else {
                 System.out.println("n�o foi possivel salvar no banco");
             }
